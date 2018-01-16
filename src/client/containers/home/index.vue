@@ -75,8 +75,7 @@ export default {
     create() 
     {
         console.log('ready')
-    },
+    }
 
-    
 }
 </script>

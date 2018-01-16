@@ -11414,11 +11414,10 @@ _vue2.default.component('navbar', _navbar2.default); //
 //
 //
 
-_vue2.default.component('subheader', Object.assign(_subheader2.default, {
-  data: {
-    title: 'Create Dockerfile'
-  }
-}));
+_vue2.default.component('subheader', _subheader2.default);
+
+// solved at : https://vuejs.org/v2/guide/reactivity.html#Declaring-Reactive-Properties
+_subheader2.default.title = 'Create Dockerfile';
 
 exports.default = {
   name: 'dockerfile'
@@ -11472,8 +11471,15 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
 
 exports.default = {
+  data: function data() {
+    return {};
+  },
+
+  // ref: https://vuejs.org/v2/guide/components.html#Passing-Data-with-Props
+  props: ['title', 'subtitle', 'name', 'link'],
   name: 'subheader'
 };
 
@@ -14819,7 +14825,7 @@ var render = function() {
           "div",
           { staticClass: "p-0 col-12" },
           [
-            _c("data-link", { staticClass: "logo", attrs: { to: "/" } }, [
+            _c("router-link", { staticClass: "logo", attrs: { to: "/" } }, [
               _c("img", { attrs: { src: "/images/logo-header-white.png" } })
             ]),
             _c("ul", { staticClass: "horizontal-list" }, [
@@ -14930,7 +14936,7 @@ var render = function() {
         _c("header", { staticClass: "createconf" }, [
           _c("h1", [_vm._v(_vm._s(_vm.title))]),
           _c("h2", [
-            _vm._v(_vm._s(_vm.subtitle)),
+            _vm._v(_vm._s(_vm.subtitle) + ". "),
             _c("a", { attrs: { target: "_blank" } }, [
               _vm._v("Readmore about " + _vm._s(_vm.name))
             ])
@@ -14977,6 +14983,7 @@ var render = function() {
                 "Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Using docker build users can create an automated build that executes several command-line instructions in succession. More about Dockerfile"
             }
           }),
+          _c("section"),
           _vm._m(0)
         ],
         1
@@ -14990,73 +14997,135 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", [
-      _c("div", { staticClass: "container-md" }, [
-        _c("div", { staticClass: "grid" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _c("div", { staticClass: "createconf-form" }, [
-              _c("div", { staticClass: "createconf-form-control" }, [
-                _c("label", [_vm._v("IMAGE FROM ")]),
-                _c("small", [
-                  _c("strong", [_vm._v("IMAGE ")]),
-                  _vm._v("is based on "),
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "https://hub.docker.com/",
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v("Docker Hub")]
-                  )
-                ]),
-                _c("input", {
-                  attrs: {
-                    type: "text",
-                    placeholder: "for example: ubuntu, nodejs-slim"
-                  }
-                })
+    return _c("div", { staticClass: "container-md" }, [
+      _c("div", { staticClass: "grid" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "createconf-form" }, [
+            _c("div", { staticClass: "createconf-form-control" }, [
+              _c("label", [_vm._v("IMAGE FROM ")]),
+              _c("small", [
+                _c("strong", [_vm._v("IMAGE ")]),
+                _vm._v("is based on "),
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "https://hub.docker.com/", target: "_blank" }
+                  },
+                  [_vm._v("Docker Hub")]
+                )
               ]),
-              _c("div", { staticClass: "createconf-form-control" }, [
-                _c("label", [_vm._v("RUN ")]),
-                _c("small", [
-                  _c("strong", [_vm._v("RUN ")]),
-                  _vm._v(
-                    "Actually runs a command and commits the result. Make sure to write command in sequentially."
-                  )
+              _c("input", {
+                attrs: {
+                  type: "text",
+                  placeholder: "for example: ubuntu, nodejs-slim"
+                }
+              })
+            ]),
+            _c("div", { staticClass: "createconf-form-control" }, [
+              _c("label", [_vm._v("RUN ")]),
+              _c("small", [
+                _c("strong", [_vm._v("RUN ")]),
+                _vm._v(
+                  "Actually runs a command and commits the result. Make sure to write command in sequentially."
+                )
+              ]),
+              _c("input", {
+                attrs: {
+                  type: "text",
+                  placeholder: "for example: apt-get update -y"
+                }
+              }),
+              _c("div", { staticClass: "commands" }, [
+                _c("div", { staticClass: "command" }, [
+                  _vm._v("RUN: apt-get update -y && apt-get autoremove -y")
                 ]),
-                _c("input", {
-                  attrs: {
-                    type: "text",
-                    placeholder: "for example: apt-get update -y"
-                  }
-                }),
-                _c("div", { staticClass: "commands" }, [
-                  _c("div", { staticClass: "command" }, [
-                    _vm._v("RUN: apt-get update -y && apt-get autoremove -y")
-                  ]),
-                  _c("div", { staticClass: "command" }, [
-                    _vm._v("RUN: apt-get install -y supervisor")
-                  ]),
-                  _c("div", { staticClass: "command" }, [
-                    _vm._v("RUN: apt-get autoremove -y")
-                  ]),
-                  _c("div", { staticClass: "command" }, [
-                    _vm._v("RUN: build ./cfg/maxready")
-                  ]),
-                  _c("div", { staticClass: "command" }, [
-                    _vm._v("RUN: powerless infrared -p mask")
-                  ])
+                _c("div", { staticClass: "command" }, [
+                  _vm._v("RUN: apt-get install -y supervisor")
+                ]),
+                _c("div", { staticClass: "command" }, [
+                  _vm._v("RUN: apt-get autoremove -y")
+                ]),
+                _c("div", { staticClass: "command" }, [
+                  _vm._v("RUN: build ./cfg/maxready")
+                ]),
+                _c("div", { staticClass: "command" }, [
+                  _vm._v("RUN: powerless infrared -p mask")
+                ])
+              ])
+            ]),
+            _c("div", { staticClass: "createconf-form-control" }, [
+              _c("label", [_vm._v("RUN (sample if empty)")]),
+              _c("small", [
+                _c("strong", [_vm._v("RUN ")]),
+                _vm._v(
+                  "Actually runs a command and commits the result. Make sure to write command in sequentially."
+                )
+              ]),
+              _c("input", {
+                attrs: {
+                  type: "text",
+                  placeholder: "for example: apt-get update -y"
+                }
+              }),
+              _c("div", { staticClass: "commands" })
+            ]),
+            _c("div", { staticClass: "createconf-form-control" }, [
+              _c("label", [_vm._v("COPY")]),
+              _c("small", [
+                _vm._v("Make sure to write command in sequentially")
+              ]),
+              _c("div", { staticClass: "grid" }, [
+                _c("div", { staticClass: "col-6 p-0 m-b-0" }, [
+                  _c("p", { staticClass: "m-b-0" }, [_vm._v("Source ")]),
+                  _c("input", {
+                    attrs: { type: "text", placeholder: "example: /src/data" }
+                  })
+                ]),
+                _c("div", { staticClass: "col-6 p-0 m-b-0" }, [
+                  _c("p", { staticClass: "m-b-0" }, [_vm._v("Destination ")]),
+                  _c("input", {
+                    attrs: {
+                      type: "text",
+                      placeholder: "example: /var/www/data"
+                    }
+                  })
                 ])
               ]),
-              _c("div", { staticClass: "createconf-form-control" }, [
-                _c("label", [_vm._v("RUN (sample if empty)")]),
+              _c("div", { staticClass: "commands" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "command",
+                    attrs: { title: "click to delete" }
+                  },
+                  [_vm._v("COPY: /dist")]
+                ),
+                _c(
+                  "div",
+                  {
+                    staticClass: "command",
+                    attrs: { title: "click to delete" }
+                  },
+                  [_vm._v("COPY: /home/user/web")]
+                )
+              ])
+            ]),
+            _c(
+              "div",
+              { staticClass: "createconf-form-control commands-form-control" },
+              [
+                _c("label", [_vm._v("CMD ")]),
                 _c("small", [
                   _c("strong", [_vm._v("RUN ")]),
+                  _vm._v("There can only be one "),
+                  _c("strong", [_vm._v("CMD ")]),
                   _vm._v(
-                    "Actually runs a command and commits the result. Make sure to write command in sequentially."
-                  )
+                    "instruction in a Dockerfile. If you list more than one "
+                  ),
+                  _c("strong", [_vm._v("CMD ")]),
+                  _vm._v("then only the last "),
+                  _c("strong", [_vm._v("CMD ")]),
+                  _vm._v("will take effect.")
                 ]),
                 _c("input", {
                   attrs: {
@@ -15064,95 +15133,31 @@ var staticRenderFns = [
                     placeholder: "for example: apt-get update -y"
                   }
                 }),
-                _c("div", { staticClass: "commands" })
-              ]),
-              _c("div", { staticClass: "createconf-form-control" }, [
-                _c("label", [_vm._v("COPY")]),
-                _c("small", [
-                  _vm._v("Make sure to write command in sequentially")
-                ]),
-                _c("div", { staticClass: "grid" }, [
-                  _c("div", { staticClass: "col-6 p-0 m-b-0" }, [
-                    _c("p", { staticClass: "m-b-0" }, [_vm._v("Source ")]),
-                    _c("input", {
-                      attrs: { type: "text", placeholder: "example: /src/data" }
-                    })
-                  ]),
-                  _c("div", { staticClass: "col-6 p-0 m-b-0" }, [
-                    _c("p", { staticClass: "m-b-0" }, [_vm._v("Destination ")]),
-                    _c("input", {
-                      attrs: {
-                        type: "text",
-                        placeholder: "example: /var/www/data"
-                      }
-                    })
-                  ])
-                ]),
-                _c("div", { staticClass: "commands" }, [
+                _c("div", { staticClass: "commands active" }, [
                   _c(
                     "div",
                     {
                       staticClass: "command",
                       attrs: { title: "click to delete" }
                     },
-                    [_vm._v('COPY: "/dist" "/home/user/web"')]
+                    [_vm._v("CMD: /var/www/app/run.sh")]
                   )
                 ])
-              ]),
-              _c(
-                "div",
-                {
-                  staticClass: "createconf-form-control commands-form-control"
-                },
-                [
-                  _c("label", [_vm._v("CMD ")]),
-                  _c("small", [
-                    _c("strong", [_vm._v("RUN ")]),
-                    _vm._v("There can only be one "),
-                    _c("strong", [_vm._v("CMD ")]),
-                    _vm._v(
-                      "instruction in a Dockerfile. If you list more than one "
-                    ),
-                    _c("strong", [_vm._v("CMD ")]),
-                    _vm._v("then only the last "),
-                    _c("strong", [_vm._v("CMD ")]),
-                    _vm._v("will take effect.")
-                  ]),
-                  _c("input", {
-                    attrs: {
-                      type: "text",
-                      placeholder: "for example: apt-get update -y"
-                    }
-                  }),
-                  _c("div", { staticClass: "commands active" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "command",
-                        attrs: { title: "click to delete" }
-                      },
-                      [_vm._v("CMD: /var/www/app/run.sh")]
-                    )
-                  ])
-                ]
-              )
-            ])
+              ]
+            )
           ])
-        ]),
-        _c("div", { staticClass: "align-center" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-lg btn-white",
-              attrs: {
-                type: "button",
-                onclick: "return location.href='dockerfile-submit.html'"
-              }
-            },
-            [_vm._v("Generate Dockerfile")]
-          ),
-          _c("div", { staticClass: "m-sm" })
         ])
+      ]),
+      _c("div", { staticClass: "align-center" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-lg btn-white",
+            attrs: { type: "button", onclick: "" }
+          },
+          [_vm._v("Generate Dockerfile")]
+        ),
+        _c("div", { staticClass: "m-sm" })
       ])
     ])
   }
