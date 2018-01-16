@@ -3,7 +3,7 @@
     .container
         .grid
             .p-0.col-12
-                data-link.logo(to="/")
+                router-link.logo(to="/")
                     img(src="/images/logo-header-white.png")
                 ul.horizontal-list 
                     li 
