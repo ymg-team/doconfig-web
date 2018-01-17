@@ -1,9 +1,7 @@
-import path from 'path'
-import { createRenderer } from 'vue-server-renderer' 
+// import path from 'path'
+// import { createRenderer } from 'vue-server-renderer'
 
-export default (req, res) => {
-    res.send(html)
-}
+export default (req, res) => { res.send(html) }
 
 const html = `
 <!DOCTYPE html>   

@@ -1,6 +1,5 @@
 <template lang='pug'>
   span
-    navbar
     .createconf
         subheader(
             name='Dockerfile'
@@ -93,17 +92,12 @@
 
 <script>
 import Vue from 'vue'
-import navbar from '../../components/navbar.vue'
 import subheader from '../../components/subheader.vue'
 
 // register components
-Vue.component('navbar', navbar)
 Vue.component('subheader', subheader)
 
-// solved at : https://vuejs.org/v2/guide/reactivity.html#Declaring-Reactive-Properties
-subheader.title = 'Create Dockerfile'
-
 export default {
-  name: 'dockerfile'
+  name: 'conf_dockerfile'
 }
 </script>
