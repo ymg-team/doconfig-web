@@ -1,2 +1,5 @@
 # doconfig-web
-web version of doconfig (create config in seconds). Web design check this link https://github.com/idmore/doconfig-design
+
+![Doconfig Cover](https://raw.githubusercontent.com/yussan/doconfig-web/master/public/images/fb_cover.png)
+
+Web version of doconfig (create config in seconds). Web design check this link https://github.com/idmore/doconfig-design

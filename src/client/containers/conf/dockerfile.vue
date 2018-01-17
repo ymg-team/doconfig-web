@@ -1,13 +1,13 @@
-<template lang="pug">
+<template lang='pug'>
   span
     navbar
     .createconf
-      subheader(
-        name="Dockerfile"
-        link="https://docs.docker.com/engine/reference/builder/"
-        title="Create Dockerfile" 
-        subtitle="Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Using docker build users can create an automated build that executes several command-line instructions in succession. More about Dockerfile")
-      section
+        subheader(
+            name='Dockerfile'
+            link='https://docs.docker.com/engine/reference/builder/'
+            title='Create Dockerfile'
+            subtitle='Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Using docker build users can create an automated build that executes several command-line instructions in succession. More about Dockerfile')
+        section
         .container-md
             .grid
                 .col-12
@@ -18,7 +18,7 @@
                             small 
                                 strong IMAGE&nbsp;
                                 | is based on 
-                                a(href="https://hub.docker.com/" target="_blank") Docker Hub
+                                a(href='https://hub.docker.com/' target='_blank') Docker Hub
                             input(type='text' placeholder='for example: ubuntu, nodejs-slim')
 
                         //- run
@@ -60,8 +60,8 @@
                                     p.m-b-0 Destination 
                                     input(type='text' placeholder='example: /var/www/data')
                             .commands
-                                each n in ['"/dist" "/home/user/web"']
-                                    .command(title="click to delete")
+                                each n in ['/dist', '/home/user/web']
+                                    .command(title='click to delete')
                                         | COPY: #{n}
 
                         //- CMD
@@ -82,12 +82,12 @@
                             //- list setup command
                             .commands.active
                                 each n in ['/var/www/app/run.sh']
-                                    .command(title="click to delete")
+                                    .command(title='click to delete')
                                         | CMD: #{n}
 
             //- generate button
             .align-center
-                button.btn.btn-lg.btn-white(type='button' onclick="return location.href='dockerfile-submit.html'") Generate Dockerfile
+                button.btn.btn-lg.btn-white(type='button' onclick='') Generate Dockerfile
                 .m-sm
 </template>
 
@@ -98,11 +98,10 @@ import subheader from '../../components/subheader.vue'
 
 // register components
 Vue.component('navbar', navbar)
-Vue.component('subheader', Object.assign(subheader, {
-  data: {
-    title: 'Create Dockerfile'
-  }
-}))
+Vue.component('subheader', subheader)
+
+// solved at : https://vuejs.org/v2/guide/reactivity.html#Declaring-Reactive-Properties
+subheader.title = 'Create Dockerfile'
 
 export default {
   name: 'dockerfile'
