@@ -3,16 +3,15 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 
 const router = new VueRouter({
-    mode: 'history', 
-    routes
+  mode: 'history', routes
 })
 
 Vue.use(VueRouter)
-const App = new Vue({
-    base: '/',
-    el: '#app',
-    router,
-    template: `
+new Vue({
+  base: '/',
+  el: '#app',
+  router,
+  template: `
         <span>
             <router-view></router-view>
             <div class="container">
@@ -40,5 +39,8 @@ const App = new Vue({
                 </footer>
             </div>
         </span>
-    `
+    `,
+  created: () => {
+    console.log('Doconfig is ready to use.')
+  }
 })

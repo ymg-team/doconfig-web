@@ -11499,16 +11499,18 @@ var _routes2 = _interopRequireDefault(_routes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = new _vueRouter2.default({
-    mode: 'history',
-    routes: _routes2.default
+    mode: 'history', routes: _routes2.default
 });
 
 _vue2.default.use(_vueRouter2.default);
-var App = new _vue2.default({
+new _vue2.default({
     base: '/',
     el: '#app',
     router: router,
-    template: '\n        <span>\n            <router-view></router-view>\n            <div class="container">\n                <footer class="grid"> \n                    <div class="col-12">\n                        <hr>\n                    </div>\n                    <div class="col-6">\n                    <ul class="horizontal-list text-left">\n                        <li style="font-size:.9em;color:#808080;">\n                        DoConfig &copy; 2017 IdMore Team</li>\n                        <li> <a href="#">About</a></li>\n                        <li> <a href="#">How to Use</a></li>\n                        <li> <a href="#">Term of use</a></li>\n                        <li> <a href="#">Blog</a></li>\n                    </ul>\n                    </div>\n                    <div class="col-6"> \n                    <ul class="horizontal-list text-right">\n                        <li> <a href="#">Contact</a></li>\n                        <li> <a href="#">Term of use</a></li>\n                        <li> <a href="https://byidmore"> <strong>Powered By IdMore</strong></a></li>\n                    </ul>\n                    </div>\n                </footer>\n            </div>\n        </span>\n    '
+    template: '\n        <span>\n            <router-view></router-view>\n            <div class="container">\n                <footer class="grid"> \n                    <div class="col-12">\n                        <hr>\n                    </div>\n                    <div class="col-6">\n                    <ul class="horizontal-list text-left">\n                        <li style="font-size:.9em;color:#808080;">\n                        DoConfig &copy; 2017 IdMore Team</li>\n                        <li> <a href="#">About</a></li>\n                        <li> <a href="#">How to Use</a></li>\n                        <li> <a href="#">Term of use</a></li>\n                        <li> <a href="#">Blog</a></li>\n                    </ul>\n                    </div>\n                    <div class="col-6"> \n                    <ul class="horizontal-list text-right">\n                        <li> <a href="#">Contact</a></li>\n                        <li> <a href="#">Term of use</a></li>\n                        <li> <a href="https://byidmore"> <strong>Powered By IdMore</strong></a></li>\n                    </ul>\n                    </div>\n                </footer>\n            </div>\n        </span>\n    ',
+    created: function created() {
+        console.log('Doconfig is ready to use.');
+    }
 });
 
 /***/ }),
@@ -14403,7 +14405,7 @@ if (inBrowser && window.Vue) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _index = __webpack_require__(13);
@@ -14416,7 +14418,8 @@ var _dockerfile2 = _interopRequireDefault(_dockerfile);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = [{ path: '/', component: _index2.default }, { path: '/blog', component: _index2.default }, { path: '/blog/title', component: _index2.default }, { path: '/conf/dockerfile', component: _dockerfile2.default }, { path: '/conf/gruntfile', component: _dockerfile2.default }]; // containers
+// containers
+exports.default = [{ path: '/', component: _index2.default }, { path: '/blog', component: _index2.default }, { path: '/blog/title', component: _index2.default }, { path: '/conf/dockerfile', component: _dockerfile2.default }, { path: '/conf/gruntfile', component: _dockerfile2.default }];
 
 /***/ }),
 /* 13 */

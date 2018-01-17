@@ -8,7 +8,7 @@ const statics = ['js', 'css', 'images', 'libraries']
 
 // set static routes
 statics.map(n => {
-    app.use(`/${n}`, express.static(`${__dirname}/../../public/${n}`))
+  app.use(`/${n}`, express.static(`${__dirname}/../../public/${n}`))
 })
 
 // set app routes
