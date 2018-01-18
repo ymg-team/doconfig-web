@@ -9,8 +9,7 @@
   "scripts": {
     "start": "NODE_ENV=development nodemon src/server --exec 'node -r dotenv/config -r babel-register'",
     "build:watch": "webpack --watch --progress",
-    "build:prod": "NODE_ENV=production webpack --progress",
-    "build": "NODE_ENV=production webpack --progress",
+    "build:prod": "rimraf dist && NODE_ENV=production webpack --progress",
     "lint": "eslint src"
   },
   "pre-commit": "lint",
@@ -33,6 +32,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
+    "copy-webpack-plugin": "^4.3.1",
     "dotenv": "^4.0.0",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^11.0.0-beta.0",

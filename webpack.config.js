@@ -15,15 +15,25 @@ let plugins = [
 
 // production config
 if (nodeEnv === 'production') {
+  const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+  // minify appjs
   const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin
   plugins.push(new UglifyJsPlugin({ minimize: true }))
   plugins.push(new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: '"production"'
     }
-  }
-  ))
+  }))
 
+  // copy assets to dist
+  plugins.push(new CopyWebpackPlugin([
+    { from: 'public/css', to: 'css' },
+    { from: 'public/images', to: 'images' },
+    { from: 'public/libraries', to: 'libraries' }
+  ]))
+
+  // set js name
   appName += '.min.js'
   outputPath = path.resolve(__dirname, 'dist')
 } else {
