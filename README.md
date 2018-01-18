@@ -5,5 +5,5 @@
 Web version of doconfig (create config in seconds). Web design check this link https://github.com/idmore/doconfig-design
 
 ## Urls
-Live : https://doconfig.byidmore.com
-Staging : https://doconfig.netlify.com/
+- Live : https://doconfig.byidmore.com
+- Staging : https://doconfig.netlify.com/
