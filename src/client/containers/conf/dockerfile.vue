@@ -86,7 +86,11 @@
 
             //- generate button
             .align-center
-                button.btn.btn-lg.btn-white(type='button' onclick='') Generate Dockerfile
+                button.btn.btn-lg.btn-white(
+                    type='button' 
+                    v-on:click='submit' 
+                    :disabled='is_loading') 
+                    | {{ is_loading ? 'Wait for it ...' : 'Generate Dockerfile' }}
                 .m-sm
 </template>
 
@@ -98,6 +102,16 @@ import subheader from '../../components/subheader.vue'
 Vue.component('subheader', subheader)
 
 export default {
-  name: 'conf_dockerfile'
+  name: 'conf_dockerfile',
+  data() {
+      return {
+          is_loading: false,
+      }
+  },
+  methods: {
+      submit(e) {
+          this.is_loading = true
+      }
+  }
 }
 </script>
