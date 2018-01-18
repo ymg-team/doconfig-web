@@ -1,64 +1,66 @@
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
-const node_env = process.env.NODE_ENV || 'development'
+const nodeEnv = process.env.NODE_ENV || 'development'
 
-let app_name = 'app'
-let plugins = []
+let appName = 'app'
+let plugins = [
+  new HtmlWebpackPlugin({
+    inject: true,
+    template: './internals/index.html',
+    filename: 'index.html'
+  })
+]
 
 // production config
-if(node_env == 'production')
-{
-    const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-    plugins.push(new UglifyJsPlugin({ minimize: true }));
-    plugins.push(new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: '"production"'
-            }
-        }
-    ))
+if (nodeEnv === 'production') {
+  const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin
+  plugins.push(new UglifyJsPlugin({ minimize: true }))
+  plugins.push(new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: '"production"'
+    }
+  }
+  ))
 
-    app_name += '.min.js'
-
-}else 
-{
-    app_name += '.js'
+  appName += '.min.js'
+} else {
+  appName += '.js'
 }
 
 // webpack conf
 module.exports = {
-    entry: './src/client/index.js',
-    
-    output: {
-        path: path.resolve(__dirname, 'public/js'),
-        filename: app_name
-    },
+  entry: './src/client/index.js',
 
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                loader: 'babel-loader',
-                query: {
-                presets: ['es2015']
-                }
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-            }
-        ] 
-    },
+  output: {
+    path: path.resolve(__dirname, 'public'),
+    filename: `js/${appName}`
+  },
 
-    resolve: {
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js'
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
         }
-    },
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
+    ]
+  },
 
-    plugins
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  },
+
+  plugins
 
 }
-
-

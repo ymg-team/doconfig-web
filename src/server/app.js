@@ -1,17 +1,13 @@
 import express from 'express'
-
-// middlewares
-import render from './middlewares/render'
+import render from './midlewares/render'
 
 const app = express()
-const statics = ['js', 'css', 'images', 'libraries']
 
-// set static routes
+// set app routes
+const statics = ['js', 'css', 'images', 'libraries']
 statics.map(n => {
   app.use(`/${n}`, express.static(`${__dirname}/../../public/${n}`))
 })
-
-// set app routes
 app.use('*', render)
 
 // export default as app

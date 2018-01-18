@@ -55,7 +55,7 @@
 import Vue from 'vue'
 import partners from '../../components/partners.vue'
 import footer from '../../components/footer.vue'
-import conf from '../../../internals/conf'
+import conf from '../../../../internals/conf'
 
 // register component
 Vue.component('partners', partners)

@@ -15,7 +15,7 @@
             article(v-html='content')
 </template>
 <script>
-import data from '../../../internals/static-post'
+import data from '../../../../internals/static-post'
 import { toCamelCase } from 'string-manager'
 
 export default {
