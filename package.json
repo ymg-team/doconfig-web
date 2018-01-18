@@ -19,6 +19,7 @@
     "express": "^4.16.2",
     "pug": "^2.0.0-rc.4",
     "rimraf": "^2.6.2",
+    "string-manager": "^1.1.5",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "vue": "^2.5.13",
     "vue-loader": "^13.7.0",

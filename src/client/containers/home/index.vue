@@ -11,9 +11,19 @@
                         .p-0.col-10_xs-12(data-push-left='off-1_xs-0' data-push-right='off-1_xs-0')
                             .startconf-editor
                                 p What you want to config ?
-                                input#startconf-editor(type='text' placeholder='Search libraries, CI, Services..' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search libraries, CI, Services..'")
+                                input#startconf-editor(
+                                    type='text' 
+                                    placeholder='Search libraries, CI, Services..' 
+                                    onfocus="this.placeholder = ''" 
+                                    onblur="this.placeholder = 'Search libraries, CI, Services..'"
+                                    v-model='txt_search'
+                                    v-on:keyup='handleChangeTxt')
                             .startconf-recommendation
                                 ul
+                                    //- mapping recomendations
+                                    li(v-for='n in recommendation') 
+                                        router-link(:to='n.link') {{ n.name }}
+
                         .p-0.col-10_xs-12(data-push-left='off-1_xs-0' data-push-right='off-1_xs-0')
             
             .container
@@ -68,12 +78,28 @@ const conf_wip = [
 
 export default {
     name: 'home',
-    data() 
-    {
+    data() {
         return {
-            name: 'yussan',
+            txt_search: '',
+            recommendation: [],
             conf_available,
             conf_wip
+        }
+    },
+    methods: {
+        // handle input type change
+        handleChangeTxt(e) {
+            console.log('press code : ', e.keyCode)
+            if(this.txt_search != '')
+            {
+                // press bottom arrow : 40
+
+                // press up arrow : 38
+                this.recommendation = [{name: 'rec 1', link: '/'}]
+            }else 
+            {
+                this.recommendation = []
+            }
         }
     }
 }

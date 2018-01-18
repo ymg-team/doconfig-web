@@ -6,7 +6,7 @@
       .col-9
         ul.horizontal-list.text-left
           li(style='font-size:.9em;color:#808080;')
-            | DoConfig © 2017 IdMore Team
+            strong DoConfig © 2017
           li
             router-link(to='/about') About
           li
@@ -14,7 +14,9 @@
           li
             router-link(to='/contact') Contact
           li
-            router-link(to='/terms-of-service') Term of service
+            router-link(to='/terms-and-conditions') Terms and Conditions
+          li
+            router-link(to='/privacy-policy') Privacy Policy
           li
             router-link(to='/blog') Blog
       .col-3
