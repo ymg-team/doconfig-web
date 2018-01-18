@@ -24,6 +24,7 @@ export default [
       {path: '/about', title: 'about', props: {key_content: 0}, component: StaticPage},
       {path: '/terms-and-conditions', props: {key_content: 1}, component: StaticPage},
       {path: '/privacy-policy', props: {key_content: 2}, component: StaticPage},
+      {path: '/how-to-use', props: {key_content: 3}, component: StaticPage},
       // 404
       {path: '*', component: ErrorPage}
     ]}

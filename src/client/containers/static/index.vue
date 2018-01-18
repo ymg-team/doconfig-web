@@ -16,12 +16,14 @@
 </template>
 <script>
 import data from '../../../internals/static-post'
+import { toCamelCase } from 'string-manager'
 
 export default {
   name: 'static-page',
   props: ['key_content'],
   data() {
     return {
+      loading: true,
       title: null,
       content: null
     }
@@ -30,6 +32,7 @@ export default {
   // watch props changes
   watch: {
     key_content(new_val, old_val) {
+      this.loading = true
       this.fetchData(new_val)
     }
   },
@@ -44,8 +47,9 @@ export default {
     fetchData(key_content) { 
       data.find((n, key) => {
         if(key == key_content) {
+          this.loading = false
           this.content = n.content
-          this.title = n.title
+          this.title = toCamelCase(n.title)
         } 
       })
     }

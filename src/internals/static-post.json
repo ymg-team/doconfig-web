@@ -10,5 +10,9 @@
   {
     "title": "privacy policy",
     "content": "<p>This is content of about</p>"
+  },
+  {
+    "title": "how to use",
+    "content": "<p>This is content of how to use</p>"
   }
 ]

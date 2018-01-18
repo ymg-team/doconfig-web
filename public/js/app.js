@@ -11230,10 +11230,14 @@ var _footer = __webpack_require__(6);
 
 var _footer2 = _interopRequireDefault(_footer);
 
+var _conf = __webpack_require__(44);
+
+var _conf2 = _interopRequireDefault(_conf);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // register component
-_vue2.default.component('partners', _partners2.default); //
+//
 //
 //
 //
@@ -11287,11 +11291,8 @@ _vue2.default.component('partners', _partners2.default); //
 //
 //
 
+_vue2.default.component('partners', _partners2.default);
 _vue2.default.component('footer-nav', _footer2.default);
-
-var conf_available = [{ name: 'create dockerfile', link: '/conf/dockerfile', image: '/images/logos/docker.png' }];
-
-var conf_wip = [{ name: 'create .travis.yml', image: '/images/logos/travisci.png', link: '/conf/travis-ci' }, { name: 'create Heroku Procfile', image: '/images/logos/heroku.png', link: '/conf/heroku-procfile' }, { name: 'create circle CI configurattion', image: '/images/logos/circleci.png', link: 'circleci.html' }, { name: 'create Linux Makefile', image: '/images/logos/linux-makefile.png', link: 'linux-makefile.html' }, { name: 'create Jenkis Configuration', image: '/images/logos/jenkins.png', link: 'jenkins.html' }, { name: 'create Gruntfile', image: '/images/logos/grunt.png', link: 'grunt.html' }, { name: 'create gulpfile.js', image: '/images/logos/gulp.png', link: 'gulp.html' }, { name: 'create bower ', image: '/images/logos/bower.png', link: 'bower.html' }, { name: 'create webpack.config.js', image: '/images/logos/webpack.png', link: '/conf/webpack' }];
 
 exports.default = {
     name: 'home',
@@ -11299,8 +11300,8 @@ exports.default = {
         return {
             txt_search: '',
             recommendation: [],
-            conf_available: conf_available,
-            conf_wip: conf_wip
+            conf_available: _conf2.default.ready,
+            conf_wip: _conf2.default.wip
         };
     },
 
@@ -11650,13 +11651,33 @@ var _staticPost = __webpack_require__(31);
 
 var _staticPost2 = _interopRequireDefault(_staticPost);
 
+var _stringManager = __webpack_require__(38);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   name: 'static-page',
   props: ['key_content'],
   data: function data() {
     return {
+      loading: true,
       title: null,
       content: null
     };
@@ -11666,6 +11687,7 @@ exports.default = {
   // watch props changes
   watch: {
     key_content: function key_content(new_val, old_val) {
+      this.loading = true;
       this.fetchData(new_val);
     }
   },
@@ -11683,28 +11705,14 @@ exports.default = {
 
       _staticPost2.default.find(function (n, key) {
         if (key == key_content) {
+          _this.loading = false;
           _this.content = n.content;
-          _this.title = n.title;
+          _this.title = (0, _stringManager.toCamelCase)(n.title);
         }
       });
     }
   }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 12 */
@@ -14741,7 +14749,7 @@ exports.default = [{ path: '/', component: _index2.default }, {
   children: [{ path: '/blog', component: _index2.default }, { path: '/blog/title', component: _index2.default }, { path: '/conf/dockerfile', component: _dockerfile2.default }, { path: '/conf/gruntfile', component: _dockerfile2.default },
   // static page
   // send props from routes, solved from : https://router.vuejs.org/en/essentials/passing-props.html
-  { path: '/about', title: 'about', props: { key_content: 0 }, component: _index6.default }, { path: '/terms-and-conditions', props: { key_content: 1 }, component: _index6.default }, { path: '/privacy-policy', props: { key_content: 2 }, component: _index6.default },
+  { path: '/about', title: 'about', props: { key_content: 0 }, component: _index6.default }, { path: '/terms-and-conditions', props: { key_content: 1 }, component: _index6.default }, { path: '/privacy-policy', props: { key_content: 2 }, component: _index6.default }, { path: '/how-to-use', props: { key_content: 3 }, component: _index6.default },
   // 404
   { path: '*', component: _index4.default }] }]; // containers
 
@@ -15125,7 +15133,7 @@ var render = function() {
                 _c("router-link", { attrs: { to: "/about" } }, [
                   _vm._v("What is this")
                 ]),
-                _c("router-link", { attrs: { to: "/getting-started" } }, [
+                _c("router-link", { attrs: { to: "/how-to-use" } }, [
                   _vm._v("Getting Started ")
                 ]),
                 _c("router-link", { attrs: { to: "/request" } }, [
@@ -15698,7 +15706,7 @@ if (false) {(function () {
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = [{"title":"about","content":"<p>This is content of about</p>"},{"title":"terms and conditions","content":"<p>This is content of about</p>"},{"title":"privacy policy","content":"<p>This is content of about</p>"}]
+module.exports = [{"title":"about","content":"<p>This is content of about</p>"},{"title":"terms and conditions","content":"<p>This is content of about</p>"},{"title":"privacy policy","content":"<p>This is content of about</p>"},{"title":"how to use","content":"<p>This is content of how to use</p>"}]
 
 /***/ }),
 /* 32 */
@@ -15925,6 +15933,61 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-5e5fbe10", esExports)
   }
 }
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:!0}),exports.toSingleSpace=toSingleSpace;function toSingleSpace(a){try{return a&&'string'==typeof a?(a=a.trim(),a.replace(/\s\s+/g,' ')):a}catch(a){console.error(a)}}
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:!0}),exports.toSlug=exports.truncate=exports.toSingleSpace=exports.stripTags=exports.queryToObj=exports.objToQuery=exports.toCamelCase=void 0;var _camelcase2=__webpack_require__(39);Object.defineProperty(exports,'toCamelCase',{enumerable:!0,get:function get(){return _camelcase2.toCamelCase}});var _httpquery2=__webpack_require__(40);Object.defineProperty(exports,'objToQuery',{enumerable:!0,get:function get(){return _httpquery2.objToQuery}}),Object.defineProperty(exports,'queryToObj',{enumerable:!0,get:function get(){return _httpquery2.queryToObj}});var _html2=__webpack_require__(41);Object.defineProperty(exports,'stripTags',{enumerable:!0,get:function get(){return _html2.stripTags}});var _spaces2=__webpack_require__(37);Object.defineProperty(exports,'toSingleSpace',{enumerable:!0,get:function get(){return _spaces2.toSingleSpace}});var _truncate2=__webpack_require__(42);Object.defineProperty(exports,'truncate',{enumerable:!0,get:function get(){return _truncate2.truncate}});var _slug2=__webpack_require__(43);Object.defineProperty(exports,'toSlug',{enumerable:!0,get:function get(){return _slug2.toSlug}});var _httpquery=_interopRequireWildcard(_httpquery2),_camelcase=_interopRequireWildcard(_camelcase2),_html=_interopRequireWildcard(_html2),_spaces=_interopRequireWildcard(_spaces2),_truncate=_interopRequireWildcard(_truncate2),_slug=_interopRequireWildcard(_slug2);function _interopRequireWildcard(a){if(a&&a.__esModule)return a;var b={};if(null!=a)for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&&(b[c]=a[c]);return b.default=a,b}function StringManager(a){return this.data=a,this.data}function prototypeBuilder(a){return function(){for(var b=arguments.length,c=Array(b),d=0;d<b;d++)c[d]=arguments[d];return new StringManager(a.apply(void 0,[this.data].concat(c)))}}StringManager.prototype.toString=function(){return(void 0).data},StringManager.prototype.objToQuery=prototypeBuilder(_httpquery.objToQuery),StringManager.prototype.queryToObj=prototypeBuilder(_httpquery.queryToObj),StringManager.prototype.toCamelCase=prototypeBuilder(_camelcase.toCamelCase),StringManager.prototype.stripTags=prototypeBuilder(_html.stripTags),StringManager.prototype.toSingleSpace=prototypeBuilder(_spaces.toSingleSpace),StringManager.prototype.toSlug=prototypeBuilder(_slug.toSlug),exports.default=function(a){return new StringManager(a)};
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:!0}),exports.toCamelCase=toCamelCase;var _spaces=__webpack_require__(37);function toCamelCase(a){try{return a&&'string'==typeof a?(a=(0,_spaces.toSingleSpace)(a.trim()),a.split(' ').map(function(a){return a[0].toUpperCase()+a.substr(1).toLowerCase()}).join(' ')):a}catch(a){console.error(a)}}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:!0}),exports.objToQuery=objToQuery,exports.queryToObj=queryToObj;function objToQuery(a){try{var b=[];for(var c in a)a.hasOwnProperty(c)&&b.push(encodeURIComponent(c)+'='+encodeURIComponent(a[c]));return b.join('&')}catch(a){console.error(a)}}function queryToObj(a){try{var b={};return a.split('&').map(function(a){a=a.split('='),b[a[0]]=a[1]}),b}catch(a){console.error(a)}}
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:!0}),exports.stripTags=stripTags;function stripTags(a){try{return a&&'string'==typeof a?a.replace(/(<([^>]+)>)/ig,''):a}catch(a){console.error(a)}}
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:!0}),exports.truncate=truncate;function truncate(a){var b=1<arguments.length&&arguments[1]!==void 0?arguments[1]:10,c=2<arguments.length&&arguments[2]!==void 0?arguments[2]:'';try{if('string'!=typeof a)return a;if(b<a.length){var d=a.substring(0,b);a=d.substr(0,Math.min(d.length,d.lastIndexOf(' ')))}return a.trim()+c}catch(a){console.error(a)}}
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:!0}),exports.toSlug=toSlug;var _spaces=__webpack_require__(37);function toSlug(a){try{return a&&'string'==typeof a?(a=(0,_spaces.toSingleSpace)(a.trim()),a.split(' ').join('-').replace(/[/.,(){}]/g,'')):a}catch(a){console.error(a)}}
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+module.exports = {"ready":[{"name":"create dockerfile","image":"/images/logos/docker.png","link":"/conf/dockerfile"}],"wip":[{"name":"create .travis.yml","image":"/images/logos/travisci.png","link":"/conf/travis-ci"},{"name":"create Heroku Procfile","image":"/images/logos/heroku.png","link":"/conf/heroku-procfile"},{"name":"create circle CI configurattion","image":"/images/logos/circleci.png","link":"circleci.html"},{"name":"create Linux Makefile","image":"/images/logos/linux-makefile.png","link":"linux-makefile.html"},{"name":"create Jenkis Configuration","image":"/images/logos/jenkins.png","link":"jenkins.html"},{"name":"create Gruntfile","image":"/images/logos/grunt.png","link":"grunt.html"},{"name":"create gulpfile.js","image":"/images/logos/gulp.png","link":"gulp.html"},{"name":"create bower ","image":"/images/logos/bower.png","link":"bower.html"},{"name":"create webpack.config.js","image":"/images/logos/webpack.png","link":"/conf/webpack"}]}
 
 /***/ })
 /******/ ]);
