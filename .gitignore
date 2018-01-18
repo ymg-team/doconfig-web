@@ -1,7 +1,7 @@
 dist
 public/index.html 
-public/js/app.js
-public/js/app.min.js
+public/build
+
 # Logs
 logs
 *.log

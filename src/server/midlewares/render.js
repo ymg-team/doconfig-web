@@ -8,7 +8,7 @@ export default (req, res) => {
       </head>
       <body>
           <div id="app"></div>
-          <script src="/js/app.js"></script>
+          <script src="/build/app.js"></script>
       </body>
   </html>`
 

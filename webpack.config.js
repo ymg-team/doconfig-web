@@ -1,9 +1,9 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-
 const nodeEnv = process.env.NODE_ENV || 'development'
 
+let outputPath
 let appName = 'app'
 let plugins = [
   new HtmlWebpackPlugin({
@@ -25,17 +25,19 @@ if (nodeEnv === 'production') {
   ))
 
   appName += '.min.js'
+  outputPath = path.resolve(__dirname, 'dist')
 } else {
   appName += '.js'
+  outputPath = path.resolve(__dirname, 'public')
 }
 
-// webpack conf
+// default config
 module.exports = {
   entry: './src/client/index.js',
 
   output: {
-    path: path.resolve(__dirname, 'public'),
-    filename: `js/${appName}`
+    path: outputPath,
+    filename: `build/${appName}`
   },
 
   module: {
