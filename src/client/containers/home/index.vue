@@ -19,9 +19,9 @@
                                     v-model='txt_search'
                                     v-on:keyup='handleChangeTxt')
                             .startconf-recommendation
-                                ul
+                                transition-group(name='animate-list' tag='ul')
                                     //- mapping recomendations
-                                    li(v-for='n in recommendation') 
+                                    li(v-for='n, key in recommendation' :key='key') 
                                         router-link(:to='n.link') {{ n.name }}
 
                         .p-0.col-10_xs-12(data-push-left='off-1_xs-0' data-push-right='off-1_xs-0')
