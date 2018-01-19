@@ -3,6 +3,18 @@
     <head>
         <meta charset="utf-8">
         <title>Create Config in Seconds - Doconfig</title>
+        <style>
+            .animate-list-move {
+                transition: transform 1s;
+            }
+            .animate-list-enter, .animate-list-leave-to {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            .animate-list-active, .animate-list-leave-active {
+                transition: opacity .3s;
+            }
+        </style>
         <link href="/css/style.css" rel="stylesheet" />
     </head>
     <body>
