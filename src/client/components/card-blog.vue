@@ -1,5 +1,5 @@
 <template lang='pug'>
-.col-4_sm-12.blog-list 
+.blog-list(:class="size == 'small' ? '.col-4_sm-12' : '.col-12'")
   router-link(to='/blog/title-12') 
       img(src='/images/thumb.png') 
   router-link(to='/blog/title-12')
