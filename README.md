@@ -4,6 +4,10 @@
 
 Web version of doconfig (create config in seconds). Web design check this link https://github.com/idmore/doconfig-design
 
+## Preview
+- Live : https://doconfig.byidmore.com
+- Staging : https://doconfig.netlify.com/
+
 ## Specs :
 - VueJS : frontend framework
 - Firebase Firestorm : database
@@ -21,7 +25,3 @@ Run nodemon and webpack in single time.
 yarn build
 ```
 Build static site for production. Html, js and assets will be located in `dist` directory.
-
-## Urls
-- Live : https://doconfig.byidmore.com
-- Staging : https://doconfig.netlify.com/
