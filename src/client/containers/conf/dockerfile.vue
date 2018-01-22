@@ -97,11 +97,11 @@
 <script>
 import Vue from 'vue'
 import subheader from '../../components/subheader.vue'
-import inputtext from '../../components/from-input-text'
+// import inputtext from '../../components/from-input-text'
 
 // register components
 Vue.component('subheader', subheader)
-Vue.component('input-text', inputtext)
+// Vue.component('input-text', inputtext)
 
 export default {
   name: 'conf_dockerfile',
