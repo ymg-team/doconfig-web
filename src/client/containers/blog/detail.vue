@@ -24,17 +24,8 @@
             //- end of content
         .col-4_sm-12
             .grid
-                .col-12.blog-list 
-                    a(href="blog-detail.html") 
-                        img(src="/images/thumb.png") 
-                    a(href="blog-detail.html")
-                        h3 This is Title of Blog 
-                    p.text-gray 
-                        span.fa.fa-user 
-                            a(href="#") yussan&nbsp
-                        | - 
-                        span.fa.fa-calendar-o 
-                            | 23 jan 2017
+              each n, key in [1,2,3,4]
+                card(:key=key size='large')
 </template>
 <script>
 import Vue from 'vue'
@@ -55,6 +46,10 @@ export default {
       params_title(new_val) {
           this.title = toCamelCase(new_val)
       }
+  },
+  created()
+  {
+    
   }
 }
 </script>
