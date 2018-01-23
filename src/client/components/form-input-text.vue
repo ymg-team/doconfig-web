@@ -31,7 +31,7 @@
       v-for='(n, index) in childs' 
       style='margin-right:.4em'
       v-on:click='() => handleRemoveChild(name, index)')
-      | RUN: {{ n }}
+      | {{ label }}: {{ n }}
   //- end of childs available
 
 </template>
