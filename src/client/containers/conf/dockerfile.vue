@@ -16,7 +16,7 @@
                             name='txt_image'
                             label='IMAGE FROM' 
                             text='<strong>IMAGE</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
-                            placeholder='for example: ubuntu, nodejs-slim'
+                            placeholder='example: ubuntu, nodejs-slim'
                             :value='txt_image'
                             :recommendations='rec_txt_image'
                             :handleRecommendations='handleRecommendations'
@@ -28,7 +28,7 @@
                             name='txt_run'
                             label='RUN' 
                             text='<strong>RUN</strong> actually runs a command and commits the result. Make sure to write command in sequentially.'
-                            placeholder='for example: apt-get update -y (and press enter)'
+                            placeholder='example: apt-get update -y (and press enter)'
                             :value='txt_run'
                             :handleChange='handleChangeText'
                             :handleRemoveChild='handleRemoveChild'
@@ -39,30 +39,13 @@
                         input-text(
                             name='txt_copy'
                             label='COPY' 
-                            text='<strong>RUN</strong> actually runs a command and commits the result. Make sure to write command in sequentially.'
-                            placeholder='for example: apt-get update -y (and press enter)'
-                            :value='txt_run'
+                            text='<strong>COPY</strong> Make sure to write command in sequentially.'
+                            placeholder='example: /target /destination'
+                            :value='txt_copy'
                             :handleChange='handleChangeText'
                             :handleRemoveChild='handleRemoveChild'
-                            :childs='childs_txt_run'
+                            :childs='childs_txt_copy'
                             )
-
-                        //- copy
-                        .createconf-form-control
-                            label COPY
-                            small Make sure to write command in sequentially
-                            
-                            .grid 
-                                .col-6.p-0.m-b-0
-                                    p.m-b-0 Source 
-                                    input(type='text' placeholder='example: /src/data') 
-                                .col-6.p-0.m-b-0
-                                    p.m-b-0 Destination 
-                                    input(type='text' placeholder='example: /var/www/data')
-                            .commands
-                                each n in ['/dist', '/home/user/web']
-                                    .command(title='click to delete')
-                                        | COPY: #{n}
 
                         //- CMD
                         .createconf-form-control.commands-form-control
@@ -77,7 +60,7 @@
                                 strong CMD 
                                 | will take effect.
                             
-                            input(type='text' placeholder='for example: apt-get update -y')
+                            input(type='text' placeholder='example: apt-get update -y')
 
                             //- list setup command
                             .commands.active
@@ -133,7 +116,7 @@ export default {
             }
             
             // push childs 
-            if(['txt_run'].includes(name) && e.keyCode == 13 && value != '')
+            if(['txt_run', 'txt_copy'].includes(name) && e.keyCode == 13 && value != '')
             {
                 // reset input value
                 this[name] = ''
