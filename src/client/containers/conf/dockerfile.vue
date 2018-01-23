@@ -12,39 +12,40 @@
                 .col-12
                     .createconf-form 
                         //- image
-                        .createconf-form-control
-                            label IMAGE FROM 
-                            small 
-                                strong IMAGE&nbsp;
-                                | is based on 
-                                a(href='https://hub.docker.com/' target='_blank') Docker Hub
-                            input(type='text' placeholder='for example: ubuntu, nodejs-slim')
+                        input-text(
+                            name='txt_image'
+                            label='IMAGE FROM' 
+                            text='<strong>IMAGE</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
+                            placeholder='for example: ubuntu, nodejs-slim'
+                            :value='txt_image'
+                            :recommendations='rec_txt_image'
+                            :handleRecommendations='handleRecommendations'
+                            :handleChange='handleChangeText'
+                            )
 
                         //- run
-                        .createconf-form-control
-                            label RUN 
-                            small 
-                                strong RUN&nbsp;
-                                | Actually runs a command and commits the result. Make sure to write command in sequentially.
-                        
-                        
-                            input(type='text' placeholder='for example: apt-get update -y')
+                        input-text(
+                            name='txt_run'
+                            label='RUN' 
+                            text='<strong>RUN</strong> actually runs a command and commits the result. Make sure to write command in sequentially.'
+                            placeholder='for example: apt-get update -y (and press enter)'
+                            :value='txt_run'
+                            :handleChange='handleChangeText'
+                            :handleRemoveChild='handleRemoveChild'
+                            :childs='childs_txt_run'
+                            )
 
-                            //- list setup command
-                            .commands
-                                each n in ['apt-get update -y && apt-get autoremove -y', 'apt-get install -y supervisor', 'apt-get autoremove -y', 'build ./cfg/maxready', 'powerless infrared -p mask']
-                                    .command
-                                        | RUN: #{n}
-                        //- sample empty run 
-                        .createconf-form-control
-                            label RUN (sample if empty)
-                            small
-                                strong RUN&nbsp;
-                                | Actually runs a command and commits the result. Make sure to write command in sequentially.
-                            
-                            input(type='text' placeholder='for example: apt-get update -y')
-
-                            .commands
+                        //- copy
+                        input-text(
+                            name='txt_copy'
+                            label='COPY' 
+                            text='<strong>RUN</strong> actually runs a command and commits the result. Make sure to write command in sequentially.'
+                            placeholder='for example: apt-get update -y (and press enter)'
+                            :value='txt_run'
+                            :handleChange='handleChangeText'
+                            :handleRemoveChild='handleRemoveChild'
+                            :childs='childs_txt_run'
+                            )
 
                         //- copy
                         .createconf-form-control
@@ -97,23 +98,75 @@
 <script>
 import Vue from 'vue'
 import subheader from '../../components/subheader.vue'
-// import inputtext from '../../components/from-input-text'
+import inputtext from '../../components/form-input-text.vue'
 
 // register components
 Vue.component('subheader', subheader)
-// Vue.component('input-text', inputtext)
+Vue.component('input-text', inputtext)
 
 export default {
-  name: 'conf_dockerfile',
-  data() {
-      return {
-          is_loading: false,
-      }
-  },
-  methods: {
-      submit(e) {
-          this.is_loading = true
-      }
-  }
+    name: 'conf_dockerfile',
+    data() {
+        return {
+            is_loading: false,
+            rec_txt_image: [],
+            childs_txt_run: [],
+            childs_txt_copy: [],
+            txt_image: '',
+            txt_copy: '',
+            txt_run: '' 
+        }
+    },
+
+    methods: {
+        // handle change input text
+        handleChangeText(e) {
+            const { name, value } = e.target
+            
+            // get recomendations
+            if(['txt_image'].includes(name))
+            {
+                if(value != '')
+                    this[`rec_${name}`] = ['Nodejs:slim', 'Ubuntu 19.04', 'Google weblight']
+                else 
+                    this[`rec_${name}`] = []
+            }
+            
+            // push childs 
+            if(['txt_run'].includes(name) && e.keyCode == 13 && value != '')
+            {
+                // reset input value
+                this[name] = ''
+                // push data
+                this[`childs_${name}`].push(value)
+
+                return true
+            }
+
+            // mutated input value by name      
+            this[name] = value
+        },
+        // remove childs by key and input name
+        handleRemoveChild(name, key) {
+            console.log(this[`childs_${name}`][key])
+            // splice array by key
+            this[`childs_${name}`].splice(key, 1)
+        },
+        //   on click recommendations
+        handleRecommendations(name, val) {
+            // reset recommendations
+            this[`rec_${name}`] = []
+            // set input value by name and selected recommentaion
+            this[name] = val
+        },
+        // on input text change
+        submit(e) {
+            this.is_loading = true
+        }
+    },
+
+    created() {
+
+    }
 }
 </script>
