@@ -28,9 +28,7 @@ if (nodeEnv === 'production') {
 
   // copy assets to dist
   plugins.push(new CopyWebpackPlugin([
-    { from: 'public/css', to: 'css' },
-    { from: 'public/images', to: 'images' },
-    { from: 'public/libraries', to: 'libraries' }
+    { from: 'public' }
   ]))
 
   // set js name

@@ -80,7 +80,7 @@ export default {
                 // press bottom arrow : 40
 
                 // press up arrow : 38
-                this.recommendation = [{name: 'rec 1', link: '/'}]
+                this.recommendation = [{name: 'dockerfile', link: '/conf/dockerfile'}, {name: 'gitlab ci', link: '/conf/gitlab-ci'}]
             }else 
             {
                 this.recommendation = []

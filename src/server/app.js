@@ -1,11 +1,11 @@
 import express from 'express'
 import render from './midlewares/render'
-import webpack from './midlewares/webpack'
+// import webpack from './midlewares/webpack'
 
 const app = express()
 
 // global middlewares
-app.use(webpack)
+// app.use(webpack)
 
 // set app routes
 const statics = ['js', 'css', 'images', 'libraries', 'build']
