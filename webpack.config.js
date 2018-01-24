@@ -51,7 +51,7 @@ if (nodeEnv === 'production') {
   outputPath = path.resolve(__dirname, 'dist')
 } else {
   // set js bundle name
-  outputPath = path.resolve(__dirname, 'public')
+  outputPath = path.resolve(__dirname, 'public/build')
 }
 
 // default config
