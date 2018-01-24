@@ -6,7 +6,7 @@
                 h1 {{ title }}
                 h2 {{ subtitle }}.
                   | &nbsp;
-                  a(href=link target='_blank') Readmore about {{ name }}
+                  a(:href='link' target='_blank') Readmore about {{ name }}
 </template>
 
 <script>

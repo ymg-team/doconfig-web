@@ -1,0 +1,12 @@
+[
+    { 
+        "name": "gitignore.io - Create Useful .gitignore Files For Your Project", 
+        "image": "/images/logos/gitignore.svg", 
+        "link": "https://gitignore.io" 
+    },
+    { 
+        "name": "netlify - this website hosted by netlify", 
+        "image": "/images/logos/netlify.jpg", 
+        "link": "https://netlify.com" 
+    }
+]

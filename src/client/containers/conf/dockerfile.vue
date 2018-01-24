@@ -23,6 +23,16 @@
                             :handleChange='handleChangeText'
                             )
 
+                        //- workdir
+                        input-text(
+                            name='txt_workdir'
+                            label='WORKDIR' 
+                            text='<strong>WORKDIR</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
+                            placeholder='example: ubuntu, nodejs-slim'
+                            :value='txt_workdir'
+                            :handleChange='handleChangeText'
+                            )
+
                         //- run
                         input-text(
                             name='txt_run'
@@ -97,7 +107,8 @@ export default {
             childs_txt_copy: [],
             txt_image: '',
             txt_copy: '',
-            txt_run: '' 
+            txt_run: '', 
+            txt_workdir: '', 
         }
     },
 

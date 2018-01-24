@@ -41,12 +41,20 @@
                     className='availableconf' 
                     :partners='conf_available'
                     )
-                
+
                 partners(
                     title='Config In Progress' 
                     subtitle='Get ready for the upcoming configurations on DoConfig' 
                     className='wipconf' 
                     :partners='conf_wip'
+                    )
+
+                partners(
+                    title='Partners' 
+                    subtitle='Thanks for all the parties bellow who have supported Doconfig' 
+                    className='availableconf' 
+                    :is_newtab='true'
+                    :partners='data_partners'
                     )
         footer-nav
 </template>
@@ -55,7 +63,8 @@
 import Vue from 'vue'
 import partners from '../../components/partners.vue'
 import footer from '../../components/footer.vue'
-import conf from '../../../../internals/conf'
+import data_conf from '../../../../internals/data-conf'
+import data_partners from '../../../../internals/data-partners'
 
 // register component
 Vue.component('partners', partners)
@@ -67,8 +76,9 @@ export default {
         return {
             txt_search: '',
             recommendation: [],
-            conf_available: conf.ready,
-            conf_wip: conf.wip
+            conf_available: data_conf.ready,
+            conf_wip: data_conf.wip,
+            data_partners
         }
     },
     methods: {
