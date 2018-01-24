@@ -107,7 +107,8 @@ export default {
             childs_txt_copy: [],
             txt_image: '',
             txt_copy: '',
-            txt_run: '' 
+            txt_run: '', 
+            txt_workdir: '', 
         }
     },
 
