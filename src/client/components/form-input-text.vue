@@ -24,12 +24,12 @@
   //- end of recommendations
 
   //- is childs available
-  .commands
+  .commands(style='margin-top:-10px')
     .command(
       title='click to remove' 
       class='command' 
       v-for='(n, index) in childs' 
-      style='margin-right:.4em'
+      style='margin-right:.25em'
       v-on:click='() => handleRemoveChild(name, index)')
       | {{ label }}: {{ n }}
   //- end of childs available

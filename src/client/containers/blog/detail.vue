@@ -31,6 +31,7 @@
 import Vue from 'vue'
 import { toCamelCase } from 'string-manager'
 import card from '../../components/card-blog.vue'
+import firebase from '../../helpers/firebase'
 
 Vue.component('card', card)
 
