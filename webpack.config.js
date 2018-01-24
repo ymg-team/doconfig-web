@@ -7,17 +7,10 @@ const nodeEnv = process.env.NODE_ENV || 'development'
 
 let outputPath
 let plugins = [
-  // generate indexed.html for static site
-  new HtmlWebpackPlugin({
-    inject: true,
-    template: './internals/index.html',
-    filename: 'index.html'
-  }),
-
   // added vendor chunk
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-    filename: process.env.NODE_ENV === 'production' ? 'vendor.[hash].js' : 'vendor.js',
+    filename: process.env.NODE_ENV === 'production' ? 'build/vendor.[hash].js' : 'vendor.js',
     minChunks: Infinity
   })
 ]
@@ -46,6 +39,12 @@ if (nodeEnv === 'production') {
   plugins.push(new CopyWebpackPlugin([
     { from: 'public' }
   ]))
+  // generate index html
+  plugins.push(new HtmlWebpackPlugin({
+    inject: true,
+    template: './internals/index.html',
+    filename: 'index.html'
+  }))
 
   // set js bundle name
   outputPath = path.resolve(__dirname, 'dist')
@@ -62,9 +61,9 @@ module.exports = {
   },
 
   output: {
+    filename: process.env.NODE_ENV === 'production' ? 'build/[name].[hash].js' : '[name].js',
     path: outputPath,
-    filename: process.env.NODE_ENV === 'production' ? '[name].[hash].js' : '[name].js',
-    chunkFilename: '[name].js'
+    publicPath: '/'
   },
 
   module: {
