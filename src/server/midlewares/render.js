@@ -9,6 +9,7 @@ export default (req, res) => {
       <body>
           <div id="app"></div>
           <script src="/build/app.js"></script>
+          <script src="/build/vendor.js"></script>
       </body>
   </html>`
 

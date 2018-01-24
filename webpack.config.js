@@ -6,12 +6,19 @@ const path = require('path')
 const nodeEnv = process.env.NODE_ENV || 'development'
 
 let outputPath
-let appName = 'app'
 let plugins = [
+  // generate indexed.html for static site
   new HtmlWebpackPlugin({
     inject: true,
     template: './internals/index.html',
     filename: 'index.html'
+  }),
+
+  // added vendor chunk
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    filename: process.env.NODE_ENV === 'production' ? 'vendor.[hash].js' : 'vendor.js',
+    minChunks: Infinity
   })
 ]
 
@@ -41,21 +48,23 @@ if (nodeEnv === 'production') {
   ]))
 
   // set js bundle name
-  appName += '.min.js'
   outputPath = path.resolve(__dirname, 'dist')
 } else {
   // set js bundle name
-  appName += '.js'
   outputPath = path.resolve(__dirname, 'public')
 }
 
 // default config
 module.exports = {
-  entry: './src/client/index.js',
+  entry: {
+    app: './src/client/index.js',
+    vendor: ['vue', 'vuex', 'vue-router', 'firebase', 'string-manager']
+  },
 
   output: {
     path: outputPath,
-    filename: `build/${appName}`
+    filename: process.env.NODE_ENV === 'production' ? '[name].[hash].js' : '[name].js',
+    chunkFilename: '[name].js'
   },
 
   module: {
