@@ -9,6 +9,7 @@ import StaticPage from './containers/static/index.vue'
 import LayoutDefault from './layouts/default.vue'
 
 export default [
+  // homepage
   {path: '/', component: Home},
   {
     // except homepage using template

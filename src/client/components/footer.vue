@@ -12,7 +12,7 @@
           li
             router-link(to='/how-to-use') How to Use
           li
-            router-link(to='/contact') Contact
+            a(href='https://goo.gl/forms/1BlVNi9Sx0KDgO992' target='_blank') Contact
           li
             router-link(to='/terms-and-conditions') Terms and Conditions
           li

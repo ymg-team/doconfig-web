@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
+import store from './store'
 
 const router = new VueRouter({
   mode: 'history',
@@ -17,6 +18,7 @@ Vue.use(VueRouter)
 new Vue({
   base: '/',
   el: '#app',
+  store,
   router,
   template: '<router-view />',
   created: () => {

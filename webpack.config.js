@@ -1,51 +1,70 @@
+require('dotenv').config()
+
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const nodeEnv = process.env.NODE_ENV || 'development'
 
 let outputPath
-let appName = 'app'
 let plugins = [
+  // generate indexed.html for static site
   new HtmlWebpackPlugin({
     inject: true,
     template: './internals/index.html',
     filename: 'index.html'
+  }),
+
+  // added vendor chunk
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    filename: process.env.NODE_ENV === 'production' ? 'vendor.[hash].js' : 'vendor.js',
+    minChunks: Infinity
   })
 ]
 
+// set client environment variabels
+plugins.push(new webpack.DefinePlugin({
+  'process.env': {
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+    FIREBASE_APIKEY: JSON.stringify(process.env.FIREBASE_APIKEY),
+    FIREBASE_AUTHDOMAIN: JSON.stringify(process.env.FIREBASE_AUTHDOMAIN),
+    FIREBASE_DATABASEURL: JSON.stringify(process.env.FIREBASE_DATABASEURL),
+    FIREBASE_PROJECTID: JSON.stringify(process.env.FIREBASE_PROJECTID),
+    FIREBASE_STORAGEBUCKET: JSON.stringify(process.env.FIREBASE_STORAGEBUCKET),
+    FIREBASE_MESSAGINGSENDERID: JSON.stringify(process.env.FIREBASE_MESSAGINGSENDERID)
+  }
+}))
+
 // production config
 if (nodeEnv === 'production') {
+  // webpack copy
   const CopyWebpackPlugin = require('copy-webpack-plugin')
-
   // minify appjs
   const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin
   plugins.push(new UglifyJsPlugin({ minimize: true }))
-  plugins.push(new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: '"production"'
-    }
-  }))
-
   // copy assets to dist
   plugins.push(new CopyWebpackPlugin([
     { from: 'public' }
   ]))
 
-  // set js name
-  appName += '.min.js'
+  // set js bundle name
   outputPath = path.resolve(__dirname, 'dist')
 } else {
-  appName += '.js'
+  // set js bundle name
   outputPath = path.resolve(__dirname, 'public')
 }
 
 // default config
 module.exports = {
-  entry: './src/client/index.js',
+  entry: {
+    app: './src/client/index.js',
+    vendor: ['vue', 'vuex', 'vue-router', 'firebase', 'string-manager']
+  },
 
   output: {
     path: outputPath,
-    filename: `build/${appName}`
+    filename: process.env.NODE_ENV === 'production' ? '[name].[hash].js' : '[name].js',
+    chunkFilename: '[name].js'
   },
 
   module: {
