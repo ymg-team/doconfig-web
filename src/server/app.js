@@ -12,6 +12,7 @@ const statics = ['js', 'css', 'images', 'libraries', 'build']
 statics.map(n => {
   app.use(`/${n}`, express.static(`${__dirname}/../../public/${n}`))
 })
+app.use('/manifest.json', express.static(`${__dirname}/../../public/manifest.json`))
 app.use('*', render)
 
 // export default as app
