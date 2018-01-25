@@ -88,6 +88,7 @@
 
 <script>
 import Vue from 'vue'
+import { router } from '../../index'
 import subheader from '../../components/subheader.vue'
 import inputtext from '../../components/form-input-text.vue'
 import { saveConf } from '../../store/actions'
@@ -158,11 +159,14 @@ export default {
                 type: 'dockerfile', 
                 data: this.formdata
                 })
+            // redirect to result page
+            setTimeout(() => {
+                 router.push({path: '/result/dockerfile'})
+            }, 200)
         }
     },
 
     created() {
-        console.log(this.formdata)
         console.log('conf dockerfile is ready to use...')
     }
 }

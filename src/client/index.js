@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 import store from './store'
 
-const router = new VueRouter({
+export const router = new VueRouter({
   mode: 'history',
   routes,
   // fixed from https://router.vuejs.org/en/advanced/scroll-behavior.html

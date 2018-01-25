@@ -5,8 +5,9 @@ export default (req, res) => {
           <meta charset="utf-8">
           <link rel="manifest" href="/manifest.json">
           <link rel="icon" href="/images/icons/icon-512x512.png">
-          <title>Create Config in Seconds - Doconfig</title>
+          <link href="/libraries/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
           <link href="/css/style.css" rel="stylesheet" />
+          <title>Create Config in Seconds - Doconfig</title>
           <style>
                 .animate-list-move {
                     transition: transform 1s;
