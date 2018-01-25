@@ -12,7 +12,7 @@ const getters = {}
 const actions = {
   // save config
   [SAVE_CONF] ({ commit }, params) {
-    commit(TOGGLE_LOADING)
+    // commit(TOGGLE_LOADING)
     commit(SAVE_CONF, params)
   }
 }
