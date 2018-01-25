@@ -5,7 +5,7 @@
                 .container
                     section.grid.header 
                         .p-0.col-10_xs-12(data-push-left='off-1_xs-0' data-push-right='off-1_xs-0')
-                            a(href='/')
+                            router-link(to='/')
                                 img(src='/images/logo-header-white.png')
                     section.grid
                         .p-0.col-10_xs-12(data-push-left='off-1_xs-0' data-push-right='off-1_xs-0')
@@ -22,7 +22,7 @@
                                 transition-group(name='animate-list' tag='ul')
                                     //- mapping recomendations
                                     li(v-for='n, key in recommendation' :key='key') 
-                                        router-link(:to='n.link') {{ n.name }}
+                                        router-link(:to='n.link' style='display:block') {{ n.name }}
 
                         .p-0.col-10_xs-12(data-push-left='off-1_xs-0' data-push-right='off-1_xs-0')
             

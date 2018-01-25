@@ -17,8 +17,7 @@
                             label='IMAGE FROM' 
                             text='<strong>IMAGE</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
                             placeholder='example: ubuntu, nodejs-slim'
-                            :value='txt_image'
-                            :recommendations='rec_txt_image'
+                            :formdata='formdata'
                             :handleRecommendations='handleRecommendations'
                             :handleChange='handleChangeText'
                             )
@@ -29,7 +28,7 @@
                             label='WORKDIR' 
                             text='<strong>WORKDIR</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
                             placeholder='example: ubuntu, nodejs-slim'
-                            :value='txt_workdir'
+                            :formdata='formdata'
                             :handleChange='handleChangeText'
                             )
 
@@ -39,10 +38,9 @@
                             label='RUN' 
                             text='<strong>RUN</strong> actually runs a command and commits the result. Make sure to write command in sequentially.'
                             placeholder='example: apt-get update -y (and press enter)'
-                            :value='txt_run'
+                            :formdata='formdata'
                             :handleChange='handleChangeText'
                             :handleRemoveChild='handleRemoveChild'
-                            :childs='childs_txt_run'
                             )
 
                         //- copy
@@ -51,10 +49,9 @@
                             label='COPY' 
                             text='<strong>COPY</strong> Make sure to write command in sequentially.'
                             placeholder='example: /target /destination'
-                            :value='txt_copy'
+                            :formdata='formdata'
                             :handleChange='handleChangeText'
                             :handleRemoveChild='handleRemoveChild'
-                            :childs='childs_txt_copy'
                             )
 
                         //- CMD
@@ -79,12 +76,13 @@
                                         | CMD: #{n}
 
             //- generate button
+            //- @click = v-on:click
             .align-center
                 button.btn.btn-lg.btn-white(
                     type='button' 
-                    v-on:click='submit' 
-                    :disabled='is_loading') 
-                    | {{ is_loading ? 'Wait for it ...' : 'Generate Dockerfile' }}
+                    @click='submit' 
+                    :disabled='$store.state.config.loading') 
+                    | {{ $store.state.config.loading ? 'Wait for it ...' : 'Generate Dockerfile' }}
                 .m-sm
 </template>
 
@@ -92,6 +90,7 @@
 import Vue from 'vue'
 import subheader from '../../components/subheader.vue'
 import inputtext from '../../components/form-input-text.vue'
+import { saveConf } from '../../store/actions'
 
 // register components
 Vue.component('subheader', subheader)
@@ -101,66 +100,70 @@ export default {
     name: 'conf_dockerfile',
     data() {
         return {
-            is_loading: false,
-            rec_txt_image: [],
-            childs_txt_run: [],
-            childs_txt_copy: [],
-            txt_image: '',
-            txt_copy: '',
-            txt_run: '', 
-            txt_workdir: '', 
+            formdata: {}
         }
     },
 
     methods: {
+        // mapActions
+        
         // handle change input text
         handleChangeText(e) {
             const { name, value } = e.target
+            let nextformdata = this.formdata
             
             // get recomendations
             if(['txt_image'].includes(name))
             {
                 if(value != '')
-                    this[`rec_${name}`] = ['Nodejs:slim', 'Ubuntu 19.04', 'Google weblight']
+                    nextformdata[`rec_${name}`] = ['Nodejs:slim', 'Ubuntu 19.04', 'Google weblight']
                 else 
-                    this[`rec_${name}`] = []
+                    nextformdata[`rec_${name}`] = []
             }
             
             // push childs 
             if(['txt_run', 'txt_copy'].includes(name) && e.keyCode == 13 && value != '')
             {
                 // reset input value
-                this[name] = ''
+                nextformdata[name] = ''
                 // push data
-                this[`childs_${name}`].push(value)
+                if(!nextformdata[`childs_${name}`]) 
+                    nextformdata[`childs_${name}`] = []
+                nextformdata[`childs_${name}`].push(value)
 
-                return true
+                return this.formdata = Object.assign({}, nextformdata)
             }
 
             // mutated input value by name      
-            this[name] = value
+            nextformdata[name] = value
+            return this.formdata = Object.assign({}, nextformdata)
         },
         // remove childs by key and input name
         handleRemoveChild(name, key) {
-            console.log(this[`childs_${name}`][key])
             // splice array by key
-            this[`childs_${name}`].splice(key, 1)
+            this.formdata[`childs_${name}`].splice(key, 1)
         },
         //   on click recommendations
         handleRecommendations(name, val) {
             // reset recommendations
-            this[`rec_${name}`] = []
+            this.formdata[`rec_${name}`] = []
             // set input value by name and selected recommentaion
-            this[name] = val
+            this.formdata[name] = val
         },
         // on input text change
         submit(e) {
-            this.is_loading = true
+            // save conf to store
+            // ps : only 1 params can support dispatch
+            this.$store.dispatch('saveConf', {
+                type: 'dockerfile', 
+                data: this.formdata
+                })
         }
     },
 
     created() {
-
+        console.log(this.formdata)
+        console.log('conf dockerfile is ready to use...')
     }
 }
 </script>
