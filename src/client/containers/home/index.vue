@@ -1,5 +1,6 @@
 <template lang='pug'>
-    span
+transition(name='page-transition')
+    div(v-if="start")
         .homeconf 
             .startconf
                 .container
@@ -74,6 +75,7 @@ export default {
     name: 'home',
     data() {
         return {
+            start: false,
             txt_search: '',
             recommendation: [],
             conf_available: data_conf.ready,
@@ -96,6 +98,11 @@ export default {
                 this.recommendation = []
             }
         }
+    },
+    created() {
+        setTimeout(() => {
+           this.start = true 
+        }, 50);
     }
 }
 </script>

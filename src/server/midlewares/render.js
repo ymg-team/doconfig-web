@@ -17,7 +17,23 @@ export default (req, res) => {
                     opacity: 0;
                 }
                 .animate-list-active, .animate-list-leave-active {
-                    transition: opacity .3s;
+                    transition: transform .3s, opacity .3s ease .6s;
+                }
+                .page-transition-enter-active, .page-transition-leave-active {
+                    transition-property: opacity, transform;
+                    transition-duration: .25s;
+                }
+                .page-transition-enter-active {
+                    transition-delay: .25s;
+                }
+                .page-transition-enter {
+                    opacity: 0;
+                }
+                .page-transition-leave-active {
+                    opacity: 0.5;
+                }
+                .page-transition-enter {
+                    transform: translateY(-100%)
                 }
             </style>
       </head>

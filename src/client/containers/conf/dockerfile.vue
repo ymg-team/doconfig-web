@@ -1,5 +1,6 @@
 <template lang='pug'>
-  span
+transition(name='page-transition')
+  div(v-if='start')
     .createconf
         subheader(
             name='Dockerfile'
@@ -101,6 +102,7 @@ export default {
     name: 'conf_dockerfile',
     data() {
         return {
+            start: false,
             formdata: {}
         }
     },
@@ -168,6 +170,9 @@ export default {
 
     created() {
         console.log('conf dockerfile is ready to use...')
+        setTimeout(() => {
+            this.start = true 
+        }, 50)
     }
 }
 </script>
