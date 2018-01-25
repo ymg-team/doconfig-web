@@ -15,7 +15,10 @@
                         //- image
                         .createconf-form-control
                             label
-                                a.fa.fa-chevron-left(style="margin-right:10px;font-size:28px" href="dockerfile.html" title="back to create Dockerfile") 
+                                router-link.fa.fa-chevron-left(
+                                    style='margin-right:10px;font-size:28px' 
+                                    to='' 
+                                    title='back to create config') 
                                 | Dockerfile Result
                             code 
                                 | FROM node:6.9.1-slim
@@ -36,13 +39,13 @@
                                 br
                                 | EXPOSE 8080
                                 br
-                                | CMD ["npm","start"]
+                                | CMD ['npm','start']
 
             //- generate button
             .align-center
                 button.btn.btn-lg.btn-blue(type='button') Download
                 | &nbsp;
-                button.btn.btn-lg.btn-white(type='button' onclick='dc.alert.open("success", "Dockerfile is copied to clipboard")') Copy to Clipboard
+                button.btn.btn-lg.btn-white(type='button' onclick='dc.alert.open(\'success\', \'Dockerfile is copied to clipboard\')') Copy to Clipboard
                 .m-sm
                                 
 </template>

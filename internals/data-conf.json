@@ -1,6 +1,7 @@
 {
   "ready": [
-    { "name": "create dockerfile", "image": "/images/logos/docker.png", "link": "/conf/dockerfile" }
+    { "name": "create dockerfile", "image": "/images/logos/docker.png", "link": "/conf/dockerfile" },
+    { "name": "create webpack.config.js","image": "/images/logos/webpack.png", "link": "/conf/webpack" }
   ],
   "wip": [
     { "name": "create .travis.yml" , "image": "/images/logos/travisci.png", "link": "/conf/travis-ci" },
@@ -10,7 +11,7 @@
     { "name": "create Jenkis Configuration", "image": "/images/logos/jenkins.png", "link": "jenkins.html" },
     { "name": "create Gruntfile", "image": "/images/logos/grunt.png", "link": "grunt.html" },
     { "name": "create gulpfile.js", "image": "/images/logos/gulp.png", "link": "gulp.html" },
-    { "name": "create bower ", "image": "/images/logos/bower.png", "link": "bower.html" },
-    { "name": "create webpack.config.js","image": "/images/logos/webpack.png", "link": "/conf/webpack" }
+    { "name": "create bower ", "image": "/images/logos/bower.png", "link": "bower.html" }
+    
   ]
 }
