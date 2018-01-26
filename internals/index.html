@@ -9,14 +9,14 @@
         <title>Create Config in Seconds - Doconfig</title>
         <style>
             .animate-list-move {
-                transition: transform 1s;
+                transition: transform .5s;
+            }
+            .animate-list-enter-active, .animate-list-leave-active {
+                transition: all .3s;
             }
             .animate-list-enter, .animate-list-leave-to {
-                transform: translateY(50px);
                 opacity: 0;
-            }
-            .animate-list-active, .animate-list-leave-active {
-                transition: transform .3s, opacity .3s ease .6s;
+                transform: translateY(30px);
             }
             .page-transition-enter-active, .page-transition-leave-active {
                 transition-property: opacity, transform;
