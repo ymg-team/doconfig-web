@@ -20,30 +20,11 @@
                                     to='' 
                                     title='back to create config') 
                                 | Dockerfile Result
-                            code 
-                                | FROM node:6.9.1-slim
-                                br
-                                | MAINTAINER https://doconfig.com/report
-                                br
-                                | RUN export DEBIAN_FRONTEND=noninteractive && set -x \
-                                br
-                                | && npm install -g nodemon \
-                                br
-                                | && mkdir -p /usr/src/app
-                                br
-                                | WORKDIR /usr/src/app
-                                br
-                                | COPY package.json /usr/src/app
-                                br
-                                | COPY . /usr/src/app
-                                br
-                                | EXPOSE 8080
-                                br
-                                | CMD ['npm','start']
+                            code(v-html='txt_result')
 
             //- generate button
             .align-center
-                button.btn.btn-lg.btn-blue(type='button') Download
+                a.btn.btn-lg.btn-blue(:href='txt_result_link' download="dockerfile") Download dockerfile
                 | &nbsp;
                 button.btn.btn-lg.btn-white(type='button' onclick='dc.alert.open(\'success\', \'Dockerfile is copied to clipboard\')') Copy to Clipboard
                 .m-sm
@@ -52,11 +33,29 @@
 <script>
 import Vue from 'vue'
 import subheader from '../../components/subheader.vue'
+import { nl2br, br2nl } from '../../helpers/string'
 
 // register component
 Vue.component('subheader', subheader)
 
+const result = `FROM node:6.9.1-slim
+    MAINTAINER https://doconfig.com/report
+    RUN export DEBIAN_FRONTEND=noninteractive && set -x \
+    && npm install -g nodemon \
+    && mkdir -p /usr/src/app
+    WORKDIR /usr/src/app
+    COPY package.json /usr/src/app
+    COPY . /usr/src/app
+    EXPOSE 8080
+    CMD ['npm','start']`
+
 export default {
-  name: 'result-page'
+  name: 'result-page',
+  data: () => {
+      return {
+            txt_result: nl2br(result),
+            txt_result_link: `data:application/octet-stream;charset=utf-8,${encodeURIComponent(result)}`
+      }
+  }
 }
 </script>
