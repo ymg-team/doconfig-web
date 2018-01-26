@@ -23,8 +23,9 @@ export default [
       {path: '/blog', component: Blog},
       {path: '/blog/:params_title-:params_id', props: true, component: BlogDetail},
       // conf pages
-      {path: '/conf/dockerfile', component: ConfDockerfile},
-      {path: '/conf/gruntfile', component: ConfDockerfile},
+      {path: '/config/dockerfile', component: ConfDockerfile},
+      {path: '/config/webpack', component: ConfDockerfile},
+      {path: '/config/gruntfile', component: ConfDockerfile},
       // static page
       // send props from routes, solved from : https://router.vuejs.org/en/essentials/passing-props.html
       {path: '/about', title: 'about', props: {key_content: 0}, component: StaticPage},

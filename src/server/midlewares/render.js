@@ -4,6 +4,7 @@ export default (req, res) => {
       <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+          <meta name="google-site-verification" content="0b8UjZ8VIWQmQQ27I5LMM6vnx4EtG1GdiaBTPOWye_8" />
           <link rel="manifest" href="/manifest.json">
           <link rel="icon" href="/images/icons/icon-512x512.png">
           <link href="/libraries/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
