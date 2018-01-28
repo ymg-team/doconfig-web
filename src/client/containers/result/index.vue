@@ -20,21 +20,23 @@
                                     style='margin-right:10px;font-size:28px' 
                                     title='back to create config') 
                                 | Dockerfile Result
-                            code(v-html='txt_result')
+                            code(v-html='html_result')
 
             //- generate button
             .align-center
                 a.btn.btn-lg.btn-blue(:href='txt_result_link' download="dockerfile") Download dockerfile
                 | &nbsp;
-                button.btn.btn-lg.btn-white(type='button' onclick='dc.alert.open(\'success\', \'Dockerfile is copied to clipboard\')') Copy to Clipboard
+                button.btn.btn-lg.btn-white(type='button' v-on:click='copyText') Copy to Clipboard
                 .m-sm
                                 
 </template>
 <script>
 import Vue from 'vue'
 import subheader from '../../components/subheader.vue'
+import { router } from '../../index'
 import { toSingleSpace } from 'string-manager'
 import { nl2br } from '../../helpers/string'
+import copy from 'copy-to-clipboard'
 
 // register component
 Vue.component('subheader', subheader)
@@ -56,9 +58,24 @@ export default {
   data() {
       return {
         link_back: `/config/${this.$route.params.type}`,
-        txt_result: nl2br(result),
+        html_result: nl2br(result),
         txt_result_link: `data:application/octet-stream;charset=utf-8,${toSingleSpace(encodeURIComponent(result))}`
       }
+  },
+  methods: {
+      copyText() {
+          dc.alert.open('success', 'Dockerfile config is copied to clipboard')
+          copy(this.result)
+      }
+  },
+  created() {
+    const {type} = this.$route.params 
+    // if config not available in store, redirect to craate config file
+    if(Object.keys(this.$store.state.config[type]).length < 1)
+    {
+        console.log('redirect to create config...')
+        router.push({path: `/config/${type}`})
+    }
   }
 }
 </script>

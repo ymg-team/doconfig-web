@@ -28,9 +28,20 @@ transition(name='page-transition')
                             name='txt_workdir'
                             label='WORKDIR' 
                             text='<strong>WORKDIR</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
-                            placeholder='example: ubuntu, nodejs-slim'
+                            placeholder='example: /app'
                             :formdata='formdata'
                             :handleChange='handleChangeText'
+                            )
+
+                        //- copy
+                        input-text(
+                            name='txt_copy'
+                            label='COPY' 
+                            text='<strong>COPY</strong> Make sure to write command in sequentially.'
+                            placeholder='example: /target /destination (and press enter)'
+                            :formdata='formdata'
+                            :handleChange='handleChangeText'
+                            :handleRemoveChild='handleRemoveChild'
                             )
 
                         //- run
@@ -44,37 +55,15 @@ transition(name='page-transition')
                             :handleRemoveChild='handleRemoveChild'
                             )
 
-                        //- copy
+                        //- CMD
                         input-text(
-                            name='txt_copy'
-                            label='COPY' 
-                            text='<strong>COPY</strong> Make sure to write command in sequentially.'
-                            placeholder='example: /target /destination'
+                            name='txt_workdir'
+                            label='CMD' 
+                            text='<strong>RUN&nbsp;</strong>There can only be one <strong>CMD </strong>instruction in a Dockerfile. If you list more than one <strong>CMD </strong>then only the last <strong>CMD </strong>will take effect.'
+                            placeholder='example: npm run start'
                             :formdata='formdata'
                             :handleChange='handleChangeText'
-                            :handleRemoveChild='handleRemoveChild'
                             )
-
-                        //- CMD
-                        .createconf-form-control.commands-form-control
-                            label CMD 
-                            small 
-                                strong RUN&nbsp;
-                                | There can only be one 
-                                strong CMD 
-                                | instruction in a Dockerfile. If you list more than one 
-                                strong CMD 
-                                | then only the last 
-                                strong CMD 
-                                | will take effect.
-                            
-                            input(type='text' placeholder='example: apt-get update -y')
-
-                            //- list setup command
-                            .commands.active
-                                each n in ['/var/www/app/run.sh']
-                                    .command(title='click to delete')
-                                        | CMD: #{n}
 
             //- generate button
             //- @click = v-on:click
@@ -170,6 +159,9 @@ export default {
 
     created() {
         console.log('conf dockerfile is ready to use...')
+        // set submit loading to false
+        
+
         setTimeout(() => {
             this.start = true 
         }, 50)
