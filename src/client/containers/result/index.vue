@@ -36,6 +36,7 @@ import subheader from '../../components/subheader.vue'
 import { router } from '../../index'
 import { toSingleSpace } from 'string-manager'
 import { nl2br } from '../../helpers/string'
+import { saveConf } from '../../store/actions'
 import copy from 'copy-to-clipboard'
 
 // register component
@@ -69,7 +70,7 @@ export default {
       }
   },
   created() {
-    const {type} = this.$route.params 
+    const { type } = this.$route.params 
     // if config not available in store, redirect to craate config file
     if(Object.keys(this.$store.state.config[type]).length < 1)
     {
