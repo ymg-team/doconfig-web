@@ -115,7 +115,11 @@ export default {
                     router.push({path: `/config/${this.recommendation[this.recommendation_active].name}`})
                 }
 
-                this.recommendation = [{name: 'dockerfile', link: '/config/dockerfile'}, {name: 'webpack', link: '/config/webpack'}]
+                this.recommendation = [
+                    {name: 'dockerfile', link: '/config/dockerfile'}, 
+                    {name: 'webpack', link: '/config/webpack'},
+                    {name: 'nginx', link: '/config/nginx'}
+                    ]
             }else 
             {
                 // reset recommendation and recommendation_active

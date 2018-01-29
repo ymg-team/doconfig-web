@@ -1510,7 +1510,7 @@ footer {
     margin-bottom: .3em; }
     .commands .command:hover {
       color: #FFF;
-      background: #e74c3c; }
+      background: #e82c4c; }
       .commands .command:hover:after {
         content: 'x';
         padding-left: 5px;
@@ -1560,7 +1560,8 @@ a.fa:hover {
     padding-top: .5em; }
 
 .btn {
-  padding: 5px 10px; }
+  padding: 5px 10px;
+  text-decoration: none; }
   .btn:hover {
     cursor: pointer; }
   .btn.btn-white {
@@ -1616,6 +1617,16 @@ a.fa:hover {
   line-height: 1.5; }
   .blog .blog-content p:first-of-type {
     margin-top: 0; }
+
+.createconf-form .error {
+  color: #e82c4c; }
+  .createconf-form .error a, .createconf-form .error input::placeholder, .createconf-form .error textarea::placeholder, .createconf-form .error input, .createconf-form .error textarea, .createconf-form .error input:focus, .createconf-form .error textarea:focus {
+    color: #ec5770 !important; }
+  .createconf-form .error input, .createconf-form .error textarea {
+    border-bottom-color: #e82c4c !important; }
+  .createconf-form .error .error-message {
+    font-size: .8em;
+    margin-top: .5em; }
 
 .createconf-form .createconf-form-control {
   margin-bottom: 2em; }
@@ -1673,8 +1684,10 @@ form.form-dc input, form.form-dc textarea {
     color: #FFF;
     background: #2cb5e8; }
     .alert .alert-item.alert-error {
-      background: #e74c3c; }
+      background: #ec5770; }
     .alert .alert-item.alert-info {
       background: #2cb5e8; }
     .alert .alert-item.alert-success {
       background: #00a74e; }
+    .alert .alert-item.alert-warning {
+      background: #e74c3c; }

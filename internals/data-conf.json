@@ -1,7 +1,8 @@
 {
   "ready": [
     { "name": "create dockerfile", "image": "/images/logos/docker.png", "link": "/config/dockerfile" },
-    { "name": "create webpack.config.js","image": "/images/logos/webpack.png", "link": "/config/webpack" }
+    { "name": "create webpack.config.js","image": "/images/logos/webpack.png", "link": "/config/webpack" },
+    { "name": "create nginx.conf","image": "/images/logos/nginx.png", "link": "/config/nginx" }
   ],
   "wip": [
     { "name": "create .travis.yml" , "image": "/images/logos/travisci.png", "link": "/config/travis-ci" },

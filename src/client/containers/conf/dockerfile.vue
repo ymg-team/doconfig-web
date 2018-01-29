@@ -15,10 +15,11 @@ transition(name='page-transition')
                         //- image
                         input-text(
                             name='txt_image'
-                            label='IMAGE FROM' 
+                            label='IMAGE FROM *' 
                             text='<strong>IMAGE</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
                             placeholder='example: ubuntu, nodejs-slim'
                             :formdata='formdata'
+                            :formvalidation='formvalidation'
                             :handleRecommendations='handleRecommendations'
                             :handleChange='handleChangeText'
                             )
@@ -40,6 +41,7 @@ transition(name='page-transition')
                             text='<strong>COPY</strong> Make sure to write command in sequentially.'
                             placeholder='example: /target /destination (and press enter)'
                             :formdata='formdata'
+                            :formvalidation='formvalidation'
                             :handleChange='handleChangeText'
                             :handleRemoveChild='handleRemoveChild'
                             )
@@ -57,11 +59,12 @@ transition(name='page-transition')
 
                         //- CMD
                         input-text(
-                            name='txt_workdir'
-                            label='CMD' 
+                            name='txt_cmd'
+                            label='CMD *' 
                             text='<strong>RUN&nbsp;</strong>There can only be one <strong>CMD </strong>instruction in a Dockerfile. If you list more than one <strong>CMD </strong>then only the last <strong>CMD </strong>will take effect.'
                             placeholder='example: npm run start'
                             :formdata='formdata'
+                            :formvalidation='formvalidation'
                             :handleChange='handleChangeText'
                             )
 
@@ -82,6 +85,7 @@ import { router } from '../../index'
 import subheader from '../../components/subheader.vue'
 import inputtext from '../../components/form-input-text.vue'
 import { saveConf } from '../../store/actions'
+import Validator from '../../helpers/form-validator'
 
 // register components
 Vue.component('subheader', subheader)
@@ -92,7 +96,9 @@ export default {
     data() {
         return {
             start: false,
-            formdata: {}
+            formdata: {},
+            formvalidation: {},
+            validator: new Validator({'txt_image': 'required', 'txt_cmd': 'required'})
         }
     },
 
@@ -130,11 +136,13 @@ export default {
             nextformdata[name] = value
             return this.formdata = Object.assign({}, nextformdata)
         },
+
         // remove childs by key and input name
         handleRemoveChild(name, key) {
             // splice array by key
             this.formdata[`childs_${name}`].splice(key, 1)
         },
+
         //   on click recommendations
         handleRecommendations(name, val) {
             // reset recommendations
@@ -142,25 +150,42 @@ export default {
             // set input value by name and selected recommentaion
             this.formdata[name] = val
         },
+
         // on input text change
-        submit(e) {
-            // save conf to store
-            // ps : only 1 params can support dispatch
-            this.$store.dispatch('saveConf', {
-                type: 'dockerfile', 
-                data: this.formdata
-                })
-            // redirect to result page
-            setTimeout(() => {
-                 router.push({path: '/result/dockerfile'})
-            }, 200)
+        submit() {
+            // start form validation
+            this.formvalidation = this.validator.validate(this.formdata)
+
+            if(this.formvalidation.isValid)
+            {
+                // form is valid
+                // save conf to store
+                // ps : only 1 params can support dispatch
+                this.$store.dispatch('saveConf', {
+                    type: 'dockerfile', 
+                    data: this.formdata
+                    })
+                // redirect to result page
+                setTimeout(() => {
+                    router.push({path: '/result/dockerfile'})
+                }, 200)
+            }else 
+            {
+                // scroll to the top .error 
+                setTimeout(() => {
+                    document.getElementsByClassName('error')[0].scrollIntoView({ 
+                    behavior: 'smooth' 
+                    })
+                }, 50)
+                // form is not valid
+                dc.alert.open('warning', 'Sorry, your form input is not valid please check again', true)
+
+            }
         }
     },
 
     created() {
         console.log('conf dockerfile is ready to use...')
-        // set submit loading to false
-        
 
         setTimeout(() => {
             this.start = true 
