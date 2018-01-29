@@ -1,7 +1,19 @@
 import * as types from './types'
 
-export const selectBlog = ({ commit }, id) => {
-  commit(types.SELECT_BLOG, {
-    id
-  })
+/**
+ * config actions
+ */
+
+/**
+ * function to save conf
+ * @param Object params
+ * @param String params.type
+ * @param Object params.data
+ */
+export const saveConf = ({ dispatch }, params) => {
+  dispatch(types.SAVE_CONF, params)
 }
+
+/**
+ * blog actions
+ */

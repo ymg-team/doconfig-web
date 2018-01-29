@@ -1,10 +1,12 @@
 <template lang='pug'>
-  .container
-    .grid
-      .col-12.error-page 
-        h1(style='font-size:4em') {{ code }}
-          br
-          small {{ message }}
+  .container.blog 
+    .grid.text-center
+        .col-12 
+            header
+                h1 {{ code }}
+                h2 {{ message }}
+                br 
+                router-link.btn.btn-white.btn-lg(to='/') Back to Home
 </template>
 <script>
 export default {

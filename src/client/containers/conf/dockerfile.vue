@@ -1,5 +1,6 @@
 <template lang='pug'>
-  span
+transition(name='page-transition')
+  div(v-if='start')
     .createconf
         subheader(
             name='Dockerfile'
@@ -14,11 +15,11 @@
                         //- image
                         input-text(
                             name='txt_image'
-                            label='IMAGE FROM' 
+                            label='IMAGE FROM *' 
                             text='<strong>IMAGE</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
                             placeholder='example: ubuntu, nodejs-slim'
-                            :value='txt_image'
-                            :recommendations='rec_txt_image'
+                            :formdata='formdata'
+                            :formvalidation='formvalidation'
                             :handleRecommendations='handleRecommendations'
                             :handleChange='handleChangeText'
                             )
@@ -28,9 +29,21 @@
                             name='txt_workdir'
                             label='WORKDIR' 
                             text='<strong>WORKDIR</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
-                            placeholder='example: ubuntu, nodejs-slim'
-                            :value='txt_workdir'
+                            placeholder='example: /app'
+                            :formdata='formdata'
                             :handleChange='handleChangeText'
+                            )
+
+                        //- copy
+                        input-text(
+                            name='txt_copy'
+                            label='COPY' 
+                            text='<strong>COPY</strong> Make sure to write command in sequentially.'
+                            placeholder='example: /target /destination (and press enter)'
+                            :formdata='formdata'
+                            :formvalidation='formvalidation'
+                            :handleChange='handleChangeText'
+                            :handleRemoveChild='handleRemoveChild'
                             )
 
                         //- run
@@ -39,59 +52,40 @@
                             label='RUN' 
                             text='<strong>RUN</strong> actually runs a command and commits the result. Make sure to write command in sequentially.'
                             placeholder='example: apt-get update -y (and press enter)'
-                            :value='txt_run'
+                            :formdata='formdata'
                             :handleChange='handleChangeText'
                             :handleRemoveChild='handleRemoveChild'
-                            :childs='childs_txt_run'
-                            )
-
-                        //- copy
-                        input-text(
-                            name='txt_copy'
-                            label='COPY' 
-                            text='<strong>COPY</strong> Make sure to write command in sequentially.'
-                            placeholder='example: /target /destination'
-                            :value='txt_copy'
-                            :handleChange='handleChangeText'
-                            :handleRemoveChild='handleRemoveChild'
-                            :childs='childs_txt_copy'
                             )
 
                         //- CMD
-                        .createconf-form-control.commands-form-control
-                            label CMD 
-                            small 
-                                strong RUN&nbsp;
-                                | There can only be one 
-                                strong CMD 
-                                | instruction in a Dockerfile. If you list more than one 
-                                strong CMD 
-                                | then only the last 
-                                strong CMD 
-                                | will take effect.
-                            
-                            input(type='text' placeholder='example: apt-get update -y')
-
-                            //- list setup command
-                            .commands.active
-                                each n in ['/var/www/app/run.sh']
-                                    .command(title='click to delete')
-                                        | CMD: #{n}
+                        input-text(
+                            name='txt_cmd'
+                            label='CMD *' 
+                            text='<strong>RUN&nbsp;</strong>There can only be one <strong>CMD </strong>instruction in a Dockerfile. If you list more than one <strong>CMD </strong>then only the last <strong>CMD </strong>will take effect.'
+                            placeholder='example: npm run start'
+                            :formdata='formdata'
+                            :formvalidation='formvalidation'
+                            :handleChange='handleChangeText'
+                            )
 
             //- generate button
+            //- @click = v-on:click
             .align-center
                 button.btn.btn-lg.btn-white(
                     type='button' 
-                    v-on:click='submit' 
-                    :disabled='is_loading') 
-                    | {{ is_loading ? 'Wait for it ...' : 'Generate Dockerfile' }}
+                    @click='submit' 
+                    :disabled='$store.state.config.loading') 
+                    | {{ $store.state.config.loading ? 'Wait for it ...' : 'Generate Dockerfile' }}
                 .m-sm
 </template>
 
 <script>
 import Vue from 'vue'
+import { router } from '../../index'
 import subheader from '../../components/subheader.vue'
 import inputtext from '../../components/form-input-text.vue'
+import { saveConf } from '../../store/actions'
+import Validator from '../../helpers/form-validator'
 
 // register components
 Vue.component('subheader', subheader)
@@ -101,66 +95,101 @@ export default {
     name: 'conf_dockerfile',
     data() {
         return {
-            is_loading: false,
-            rec_txt_image: [],
-            childs_txt_run: [],
-            childs_txt_copy: [],
-            txt_image: '',
-            txt_copy: '',
-            txt_run: '', 
-            txt_workdir: '', 
+            start: false,
+            formdata: {},
+            formvalidation: {},
+            validator: new Validator({'txt_image': 'required', 'txt_cmd': 'required'})
         }
     },
 
     methods: {
+        // mapActions
+        
         // handle change input text
         handleChangeText(e) {
             const { name, value } = e.target
+            let nextformdata = this.formdata
             
             // get recomendations
             if(['txt_image'].includes(name))
             {
                 if(value != '')
-                    this[`rec_${name}`] = ['Nodejs:slim', 'Ubuntu 19.04', 'Google weblight']
+                    nextformdata[`rec_${name}`] = ['Nodejs:slim', 'Ubuntu 19.04', 'Google weblight']
                 else 
-                    this[`rec_${name}`] = []
+                    nextformdata[`rec_${name}`] = []
             }
             
             // push childs 
             if(['txt_run', 'txt_copy'].includes(name) && e.keyCode == 13 && value != '')
             {
                 // reset input value
-                this[name] = ''
+                nextformdata[name] = ''
                 // push data
-                this[`childs_${name}`].push(value)
+                if(!nextformdata[`childs_${name}`]) 
+                    nextformdata[`childs_${name}`] = []
+                nextformdata[`childs_${name}`].push(value)
 
-                return true
+                return this.formdata = Object.assign({}, nextformdata)
             }
 
             // mutated input value by name      
-            this[name] = value
+            nextformdata[name] = value
+            return this.formdata = Object.assign({}, nextformdata)
         },
+
         // remove childs by key and input name
         handleRemoveChild(name, key) {
-            console.log(this[`childs_${name}`][key])
             // splice array by key
-            this[`childs_${name}`].splice(key, 1)
+            this.formdata[`childs_${name}`].splice(key, 1)
         },
+
         //   on click recommendations
         handleRecommendations(name, val) {
             // reset recommendations
-            this[`rec_${name}`] = []
+            this.formdata[`rec_${name}`] = []
             // set input value by name and selected recommentaion
-            this[name] = val
+            this.formdata[name] = val
         },
+
         // on input text change
-        submit(e) {
-            this.is_loading = true
+        submit() {
+            // start form validation
+            this.formvalidation = this.validator.validate(this.formdata)
+
+            if(this.formvalidation.isValid)
+            {
+                // form is valid
+                // save conf to store
+                // ps : only 1 params can support dispatch
+                this.$store.dispatch('saveConf', {
+                    type: 'dockerfile', 
+                    data: this.formdata
+                    })
+                // redirect to result page
+                setTimeout(() => {
+                    router.push({path: '/result/dockerfile'})
+                }, 200)
+            }else 
+            {
+                // scroll to the top .error 
+                setTimeout(() => {
+                    document.getElementsByClassName('error')[0].scrollIntoView({ 
+                    behavior: 'smooth' 
+                    })
+                }, 50)
+                // form is not valid
+                dc.alert.open('warning', 'Sorry, your form input is not valid please check again', true)
+
+            }
         }
     },
 
     created() {
+        console.log('conf dockerfile is ready to use...')
 
+        setTimeout(() => {
+            this.start = true 
+        }, 50)
     }
 }
 </script>

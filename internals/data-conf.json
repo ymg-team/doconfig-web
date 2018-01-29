@@ -1,16 +1,18 @@
 {
   "ready": [
-    { "name": "create dockerfile", "image": "/images/logos/docker.png", "link": "/conf/dockerfile" }
+    { "name": "create dockerfile", "image": "/images/logos/docker.png", "link": "/config/dockerfile" },
+    { "name": "create webpack.config.js","image": "/images/logos/webpack.png", "link": "/config/webpack" },
+    { "name": "create nginx.conf","image": "/images/logos/nginx.png", "link": "/config/nginx" }
   ],
   "wip": [
-    { "name": "create .travis.yml" , "image": "/images/logos/travisci.png", "link": "/conf/travis-ci" },
-    { "name": "create Heroku Procfile" ,"image": "/images/logos/heroku.png", "link": "/conf/heroku-procfile" },
-    { "name": "create circle CI configurattion","image": "/images/logos/circleci.png", "link": "circleci.html" },
-    { "name": "create Linux Makefile", "image": "/images/logos/linux-makefile.png", "link": "linux-makefile.html" },
-    { "name": "create Jenkis Configuration", "image": "/images/logos/jenkins.png", "link": "jenkins.html" },
-    { "name": "create Gruntfile", "image": "/images/logos/grunt.png", "link": "grunt.html" },
-    { "name": "create gulpfile.js", "image": "/images/logos/gulp.png", "link": "gulp.html" },
-    { "name": "create bower ", "image": "/images/logos/bower.png", "link": "bower.html" },
-    { "name": "create webpack.config.js","image": "/images/logos/webpack.png", "link": "/conf/webpack" }
+    { "name": "create .travis.yml" , "image": "/images/logos/travisci.png", "link": "/config/travis-ci" },
+    { "name": "create Heroku Procfile" ,"image": "/images/logos/heroku.png", "link": "/config/heroku-procfile" },
+    { "name": "create circle CI configurattion","image": "/images/logos/circleci.png", "link": "/config/circleci" },
+    { "name": "create Linux Makefile", "image": "/images/logos/linux-makefile.png", "link": "/config/linux-makefile" },
+    { "name": "create Jenkis Configuration", "image": "/images/logos/jenkins.png", "link": "/config/jenkins" },
+    { "name": "create Gruntfile", "image": "/images/logos/grunt.png", "link": "/config/grunt" },
+    { "name": "create gulpfile.js", "image": "/images/logos/gulp.png", "link": "/config/gulp" },
+    { "name": "create bower ", "image": "/images/logos/bower.png", "link": "/config/bower" }
+    
   ]
 }

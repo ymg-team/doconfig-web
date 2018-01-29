@@ -1,5 +1,6 @@
 <template lang="pug">
-  .container.blog 
+transition(name='page-transition')
+  .container.blog(v-if="start")
     .grid
         .col-12 
             header
@@ -23,6 +24,7 @@ export default {
   props: ['key_content'],
   data() {
     return {
+      start: false,
       loading: true,
       title: null,
       content: null
@@ -40,6 +42,9 @@ export default {
   // component is created
   created() {
     this.fetchData(this.key_content)
+    setTimeout(() => {
+        this.start = true 
+    }, 50)
   },
 
   methods: {
@@ -53,6 +58,8 @@ export default {
         } 
       })
     }
-  }
+  },
+
+
 }
 </script>
