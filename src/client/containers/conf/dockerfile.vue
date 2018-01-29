@@ -57,6 +57,17 @@ transition(name='page-transition')
                             :handleRemoveChild='handleRemoveChild'
                             )
 
+                        //- expose port
+                        input-text(
+                            name='txt_expose'
+                            label='EXPOSE' 
+                            text='The <strong>EXPOSE</strong> instruction informs Docker that the container listens on the specified network ports at runtime. You can specify whether the port listens on TCP or UDP, and the default is TCP if the protocol is not specified.'
+                            placeholder='example: originport exposeport (and press enter)'
+                            :formdata='formdata'
+                            :handleChange='handleChangeText'
+                            :handleRemoveChild='handleRemoveChild'
+                            )
+
                         //- CMD
                         input-text(
                             name='txt_cmd'
@@ -76,6 +87,11 @@ transition(name='page-transition')
                     @click='submit' 
                     :disabled='$store.state.config.loading') 
                     | {{ $store.state.config.loading ? 'Wait for it ...' : 'Generate Dockerfile' }}
+                | &nbsp;
+                button.btn.btn-lg.btn-white(
+                    type='button' 
+                    @click='formdata = {}') 
+                    | Reset Data
                 .m-sm
 </template>
 
@@ -84,8 +100,9 @@ import Vue from 'vue'
 import { router } from '../../index'
 import subheader from '../../components/subheader.vue'
 import inputtext from '../../components/form-input-text.vue'
-import { saveConf } from '../../store/actions'
+import { saveConf, toggleLoading } from '../../store/actions'
 import Validator from '../../helpers/form-validator'
+import * as localStorage from '../../helpers/local-storage'
 
 // register components
 Vue.component('subheader', subheader)
@@ -129,12 +146,15 @@ export default {
                     nextformdata[`childs_${name}`] = []
                 nextformdata[`childs_${name}`].push(value)
 
-                return this.formdata = Object.assign({}, nextformdata)
+                this.formdata = Object.assign({}, nextformdata)
+                this.formvalidation = this.validator.validate(this.formdata)
+                return true
             }
 
             // mutated input value by name      
             nextformdata[name] = value
-            return this.formdata = Object.assign({}, nextformdata)
+            this.formdata = Object.assign({}, nextformdata)
+            this.formvalidation = this.validator.validate(this.formdata)
         },
 
         // remove childs by key and input name
@@ -186,7 +206,18 @@ export default {
 
     created() {
         console.log('conf dockerfile is ready to use...')
+        if(this.$store.state.config.loading === true) {
+            this.$store.dispatch('toggleLoading', 'config')
+        }
 
+        // set data from local storage
+        const dataLocal = localStorage.getData(`conf_dockerfile`)
+        if(dataLocal) {
+            // set store from local storage
+            this.formdata = JSON.parse(dataLocal)
+        }
+        
+        // set loading store to false
         setTimeout(() => {
             this.start = true 
         }, 50)
