@@ -1410,7 +1410,7 @@ footer {
   color: #FFF;
   text-align: center; }
   .startconf input[type='text'] {
-    width: 100%;
+    width: calc(100% - .4em);
     font-size: 3em;
     padding: .2em;
     margin: 0 auto;
@@ -1440,7 +1440,6 @@ footer {
     list-style: none;
     padding: .5em;
     background: #FFF;
-    width: 100%;
     margin-bottom: .5em; }
     .startconf-recommendation ul li:hover, .startconf-recommendation ul li.active {
       background: #2cb5e8;
@@ -1580,10 +1579,14 @@ a.fa:hover {
     padding: 10px 15px; }
 
 @media only screen and (max-width: 543px) {
+  .startconf input[type='text'], .startconf input[type='text']:focus {
+    font-size: 1.5em; }
   .container, .container-md {
     width: 100%; } }
 
 @media only screen and (min-width: 544px) and (max-width: 767px) {
+  .startconf input[type='text'], .startconf input[type='text']:focus {
+    font-size: 1.5em; }
   .container, .container-md {
     width: 100%; } }
 
@@ -1630,6 +1633,8 @@ a.fa:hover {
 
 .createconf-form .createconf-form-control {
   margin-bottom: 2em; }
+  .createconf-form .createconf-form-control small {
+    display: block; }
   .createconf-form .createconf-form-control label {
     font-size: 2em;
     margin-bottom: 0.5em;
@@ -1645,6 +1650,18 @@ a.fa:hover {
       color: #2cb5e8;
       outline: 0;
       border-color: #2cb5e8; }
+  .createconf-form .createconf-form-control select {
+    font-size: 1em;
+    margin-top: .5em;
+    background: #FFF;
+    padding: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: .3em 1em;
+    cursor: pointer;
+    border: 1px solid #808080;
+    border-radius: 0; }
 
 form.form-dc label {
   display: block;
@@ -1691,3 +1708,6 @@ form.form-dc input, form.form-dc textarea {
       background: #00a74e; }
     .alert .alert-item.alert-warning {
       background: #e74c3c; }
+
+.m-t-20 {
+  margin-top: 20px; }
