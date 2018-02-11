@@ -1521,6 +1521,9 @@ footer {
 .m-b-0 {
   margin-bottom: 0; }
 
+.m-t-10 {
+  margin-top: 1em; }
+
 .m-sm {
   margin: 1em; }
 
@@ -1547,6 +1550,9 @@ footer {
 
 .align-center {
   text-align: center; }
+
+.fullwidth {
+  width: 100%; }
 
 a.fa:hover {
   text-decoration: none !important; }
@@ -1577,6 +1583,8 @@ a.fa:hover {
   .btn.btn-lg {
     font-size: 1em;
     padding: 10px 15px; }
+  .btn:disabled {
+    cursor: not-allowed; }
 
 @media only screen and (max-width: 543px) {
   .startconf input[type='text'], .startconf input[type='text']:focus {
@@ -1635,7 +1643,7 @@ a.fa:hover {
   margin-bottom: 2em; }
   .createconf-form .createconf-form-control small {
     display: block; }
-  .createconf-form .createconf-form-control label {
+  .createconf-form .createconf-form-control label:first-child {
     font-size: 2em;
     margin-bottom: 0.5em;
     display: block; }
@@ -1686,6 +1694,14 @@ form.form-dc input, form.form-dc textarea {
     background: #2cb5e8;
     color: #FFF;
     border: 1px solid #309dcc; }
+
+input:disabled, button:disabled {
+  cursor: not-allowed; }
+
+.disabled, .disabled input {
+  cursor: not-allowed;
+  padding: .5em;
+  background-color: #f4f4f4; }
 
 .alert {
   position: fixed;

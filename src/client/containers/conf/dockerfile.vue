@@ -83,6 +83,11 @@ transition(name='page-transition')
             //- @click = v-on:click
             .align-center
                 button.btn.btn-lg.btn-white(
+                    title='for now is not yet available'
+                    type='button' disabled) 
+                    | Save to Dashboard
+                | &nbsp;
+                button.btn.btn-lg.btn-white(
                     type='button' 
                     @click='submit' 
                     :disabled='$store.state.config.loading') 

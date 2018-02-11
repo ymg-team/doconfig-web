@@ -3,7 +3,8 @@ import Home from './containers/home/index.vue'
 import Blog from './containers/blog/index.vue'
 import BlogDetail from './containers/blog/detail.vue'
 import ConfDockerfile from './containers/conf/dockerfile.vue'
-import ConfWebpack from './containers/conf/webpack.vue'
+// import ConfWebpack from './containers/conf/webpack.vue'
+import ConfNginx from './containers/conf/nginx.vue'
 import ErrorPage from './containers/error/index.vue'
 import StaticPage from './containers/static/index.vue'
 import Result from './containers/result/index.vue'
@@ -25,8 +26,9 @@ export default [
       {path: '/blog/:params_title-:params_id', props: true, component: BlogDetail},
       // conf pages
       {path: '/config/dockerfile', component: ConfDockerfile},
-      {path: '/config/webpack', component: ConfWebpack},
-      {path: '/config/gruntfile', component: ConfDockerfile},
+      // {path: '/config/webpack', component: ConfWebpack},
+      // {path: '/config/gruntfile', component: ConfDockerfile},
+      {path: '/config/nginx', component: ConfNginx},
       // static page
       // send props from routes, solved from : https://router.vuejs.org/en/essentials/passing-props.html
       {path: '/about', title: 'about', props: {key_content: 0}, component: StaticPage},
