@@ -2,10 +2,10 @@
 .createconf-form-control
   label TYPE APP TO SERVE
   small Automatically the next input will match the type of application you want to build. 
-  select.fullwidth
-    option -- Choose one / nothing
+  select.fullwidth(:name='name' @change='handleChange' :value='formdata[name]')
+    option(value='') -- Choose one / nothing
     //- maping options props
-    option(v-for='(n, index) in options' value='index') {{n}}
+    option(v-for='(n, index) in options' :value='index') {{n}}
     //- end of maping options props
   .error-message
 </template>

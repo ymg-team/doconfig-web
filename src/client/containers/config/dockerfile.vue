@@ -1,6 +1,5 @@
 <template lang='pug'>
-transition(name='page-transition')
-  div(v-if='start')
+transition(name='page-transition' v-if='start')
     .createconf
         subheader(
             name='Dockerfile'
@@ -27,8 +26,8 @@ transition(name='page-transition')
                         //- workdir
                         input-text(
                             name='txt_workdir'
-                            label='WORKDIR' 
-                            text='<strong>WORKDIR</strong> is based on <a href=\'https://hub.docker.com/\' target=\'blank\'>Docker Hub</a>'
+                            label='DOMAIN / SERVER NAME *' 
+                            text='Just write domain without http / https, or by default _'
                             placeholder='example: /app'
                             :formdata='formdata'
                             :handleChange='handleChangeText'
@@ -104,7 +103,7 @@ transition(name='page-transition')
 import Vue from 'vue'
 import { router } from '../../index'
 import subheader from '../../components/subheader.vue'
-import inputtext from '../../components/form-input-text.vue'
+import inputtext from '../../components/form/form-input-text.vue'
 import { saveConf, toggleLoading } from '../../store/actions'
 import Validator from '../../helpers/form-validator'
 import * as localStorage from '../../helpers/local-storage'
