@@ -116,9 +116,9 @@ export default {
                 }
 
                 this.recommendation = [
+                    {name: 'nginx', link: '/config/nginx'},
                     {name: 'dockerfile', link: '/config/dockerfile'}, 
-                    {name: 'webpack', link: '/config/webpack'},
-                    {name: 'nginx', link: '/config/nginx'}
+                    {name: 'webpack', link: '/config/webpack'}
                     ]
             }else 
             {

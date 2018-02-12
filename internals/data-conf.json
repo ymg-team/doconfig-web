@@ -1,10 +1,10 @@
 {
   "ready": [
-    { "name": "create dockerfile", "image": "/images/logos/docker.png", "link": "/config/dockerfile" },
-    { "name": "create webpack.config.js","image": "/images/logos/webpack.png", "link": "/config/webpack" },
-    { "name": "create nginx.conf","image": "/images/logos/nginx.png", "link": "/config/nginx" }
+    { "name": "create nginx.conf","image": "/images/logos/nginx.png", "link": "/config/nginx" },
+    { "name": "create dockerfile", "image": "/images/logos/docker.png", "link": "/config/dockerfile" }
   ],
   "wip": [
+    { "name": "create webpack.config.js","image": "/images/logos/webpack.png", "link": "/config/webpack" },
     { "name": "create .travis.yml" , "image": "/images/logos/travisci.png", "link": "/config/travis-ci" },
     { "name": "create Heroku Procfile" ,"image": "/images/logos/heroku.png", "link": "/config/heroku-procfile" },
     { "name": "create circle CI configurattion","image": "/images/logos/circleci.png", "link": "/config/circleci" },
@@ -13,6 +13,5 @@
     { "name": "create Gruntfile", "image": "/images/logos/grunt.png", "link": "/config/grunt" },
     { "name": "create gulpfile.js", "image": "/images/logos/gulp.png", "link": "/config/gulp" },
     { "name": "create bower ", "image": "/images/logos/bower.png", "link": "/config/bower" }
-    
   ]
 }

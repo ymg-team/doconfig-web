@@ -5,6 +5,7 @@ import * as localStorage from '../../helpers/local-storage'
 const state = {
   dockerfile: {},
   webpack: {},
+  nginx: {},
   loading: false
 }
 

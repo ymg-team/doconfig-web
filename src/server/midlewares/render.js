@@ -37,6 +37,12 @@ export default (req, res) => {
                 .page-transition-enter {
                     transform: translateY(-100%)
                 }
+                .fade-enter-active, .fade-leave-active {
+                    transition: opacity .5s;
+                }
+                .fade-enter, .fade-leave-to {
+                    opacity: 0;
+                }
             </style>
       </head>
       <body>
