@@ -161,7 +161,6 @@ export default {
           }, 50)
           // form is not valid
           dc.alert.open('warning', 'Sorry, your form input is not valid please check again', true)
-
       }
     },
 
@@ -176,7 +175,10 @@ export default {
         nextformdata.txt_log_access = '/var/log/app/app.access.log'
       }
 
-      return this.formdata = Object.assign({}, nextformdata)
+      this.formdata = Object.assign({}, nextformdata)
+
+      // save to localstorage
+      this.saveFormdata()
     },
 
     handleChangeText(e) {
@@ -184,7 +186,15 @@ export default {
       let nextformdata = this.formdata
       nextformdata[name] = value
 
-      return this.formdata = Object.assign({}, nextformdata)
+      this.formdata = Object.assign({}, nextformdata)
+      
+      // save to localstorage
+      this.saveFormdata()
+    },
+
+    // save form data to localstorage
+    saveFormdata() {
+      localStorage.setData(`conf_nginx`, JSON.stringify(this.formdata))
     }
   },
 
@@ -194,11 +204,10 @@ export default {
       this.$store.dispatch('toggleLoading', 'config')
     }
 
-    // set data from local storage
+    // get data from local storage
     const dataLocal = localStorage.getData(`conf_nginx`)
     if(dataLocal) {
       // set store from local storage
-      console.log(dataLocal)
       this.formdata = JSON.parse(dataLocal)
     }
 

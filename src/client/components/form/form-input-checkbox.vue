@@ -9,7 +9,7 @@
     input(
         type='checkbox' 
         :name='name'
-        :value='formdata[name]' 
+        :checked='formdata[name]' 
         v-on:change='handleChange')
     | &nbsp;{{ other_text }}
 </template>
@@ -45,7 +45,5 @@ const props = {
 export default {
   name: 'form-input-checkbox',
   props,
-  created() {
-  }
 }
 </script>

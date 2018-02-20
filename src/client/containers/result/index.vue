@@ -2,7 +2,7 @@
 .createconf
     //- subheader
     subheader(
-            name='Dockerfile'
+            :name='type'
             link='https://docs.docker.com/engine/reference/builder/'
             title='Create Dockerfile'
             subtitle='Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Using docker build users can create an automated build that executes several command-line instructions in succession. More about Dockerfile')
@@ -19,7 +19,7 @@
                                     :to='link_back' 
                                     style='margin-right:10px;font-size:28px' 
                                     title='back to create config') 
-                                | Dockerfile Result
+                                | {{type}} Result
                             code(v-html='html_result')
 
             //- generate button
@@ -58,7 +58,7 @@ export default {
   name: 'result-page',
   data() {
       return {
-        link_back: `/config/${this.$route.params.type}`,
+        link_back: `/config/${this.type}`,
         html_result: nl2br(result),
         txt_result_link: `data:application/octet-stream;charset=utf-8,${toSingleSpace(encodeURIComponent(result))}`
       }
@@ -70,13 +70,18 @@ export default {
       }
   },
   created() {
-    const { type } = this.$route.params 
+    const { type } = this
     // if config not available in store, redirect to craate config file
     if(Object.keys(this.$store.state.config[type]).length < 1)
     {
         console.log('redirect to create config...')
         router.push({path: `/config/${type}`})
     }
+  },
+  props: {
+      type: {
+          type: String
+      }
   }
 }
 </script>
