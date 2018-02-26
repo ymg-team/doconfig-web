@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import * as actions from './actions'
 
 import blog from '../containers/blog/store'
-import config from '../containers/conf/store'
+import config from '../containers/config/store'
 
 Vue.use(Vuex)
 
